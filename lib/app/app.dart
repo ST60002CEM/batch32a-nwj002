@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:liquor_ordering_system/screen/on_boarding_screen.dart';
+import 'package:liquor_ordering_system/screen/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       // themes
-      home: OnBoardingScreen(),
+      home: SplashScreen(),
     );
   }
 }

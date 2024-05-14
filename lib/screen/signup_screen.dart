@@ -7,7 +7,7 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Registration'),
+        title: const Text('Sign Up'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -17,18 +17,24 @@ class SignupScreen extends StatelessWidget {
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'Full Name',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.person),
               ),
             ),
             const SizedBox(height: 16.0),
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'Email',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.email),
               ),
             ),
             const SizedBox(height: 16.0),
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'Password',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.lock),
               ),
               obscureText: true,
             ),
@@ -37,7 +43,14 @@ class SignupScreen extends StatelessWidget {
               onPressed: () {
                 // Implement registration logic here
               },
-              child: const Text('Register'),
+              child: const Text('Sign Up'),
+            ),
+            const SizedBox(height: 16.0),
+            TextButton(
+              onPressed: () {
+                // Navigate to the login screen
+              },
+              child: const Text('Already have an account? Sign In'),
             ),
           ],
         ),

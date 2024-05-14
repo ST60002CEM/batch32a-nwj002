@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:liquor_ordering_system/screen/login_screen.dart';
+import 'package:liquor_ordering_system/screen/onboarding_screen.dart';
 
-class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  _OnBoardingScreenState createState() => _OnBoardingScreenState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
+class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
+        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
       );
     });
   }
@@ -31,7 +31,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/tipsy.png',
+                'assets/images/ticon.png',
                 width: 300, // adjust the width as needed
                 height: 300, // adjust the height as needed
               ),
