@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const OnboardingScreen()),
@@ -24,8 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color:
-            const Color(0xFFD8CEC4), // Set your desired background color here
+        // color:
+        //     const Color(0xFFD8CEC4), // Set your desired background color here
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
