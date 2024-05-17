@@ -38,14 +38,12 @@ class _SplashScreenState extends State<SplashScreen> {
               const Text(
                 'Welcome to Tipsy',
                 style: TextStyle(
-                    fontFamily: 'Times New Roman',
                     fontSize: 38,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFFD29062)),
               ),
               const Text('Online Liquor Store',
                   style: TextStyle(
-                      fontFamily: 'Times New Roman',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFFD29062))),

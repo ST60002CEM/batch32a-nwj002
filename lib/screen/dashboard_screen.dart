@@ -13,11 +13,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Buttom Navigation Screen"),
-      ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.green,
+        backgroundColor: const Color(0xFFD29062),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
