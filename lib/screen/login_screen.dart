@@ -52,12 +52,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontStyle: FontStyle.normal,
-                      fontSize: 24,
+                      fontSize: 26,
                       color: Color(0xFFD29062),
                     ),
                   ),
                   const Text(
-                    "an Online Liquor Store",
+                    "Online Liquor Store",
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
                     style: TextStyle(

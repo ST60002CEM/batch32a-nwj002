@@ -83,12 +83,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 12),
                       prefixIcon: const Icon(Icons.account_box,
-                          color: Color(0xffff9800), size: 22),
+                          color: Color(0xFFD29062), size: 22),
                     ),
                   ),
                 ),
 
-                // email
+                // username
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
                   child: TextFormField(
@@ -130,7 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 12),
                       prefixIcon: const Icon(Icons.verified_user,
-                          color: Color(0xffff9800), size: 22),
+                          color: Color(0xFFD29062), size: 22),
                     ),
                   ),
                 ),
@@ -176,7 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 12),
                       prefixIcon: const Icon(Icons.email,
-                          color: Color(0xffff9800), size: 22),
+                          color: Color(0xFFD29062), size: 22),
                     ),
                   ),
                 ),
@@ -222,7 +222,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 8, horizontal: 12),
                       prefixIcon: const Icon(Icons.lock,
-                          color: Color(0xffff9800), size: 22),
+                          color: Color(0xFFD29062), size: 22),
                       suffixIcon: GestureDetector(
                         onTap: () {
                           setState(() {
@@ -234,7 +234,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ? Icons.visibility
                               : Icons.visibility_off,
                           size: 20.0,
-                          color: Colors.black,
+                          color: const Color(0xFFD29062),
                         ),
                       ),
                     ),
@@ -295,7 +295,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ? Icons.visibility
                               : Icons.visibility_off,
                           size: 20.0,
-                          color: Colors.black,
+                          color: const Color(0xFFD29062),
                         ),
                       ),
                     ),

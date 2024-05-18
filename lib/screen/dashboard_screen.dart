@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liquor_ordering_system/screen/login_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -13,6 +14,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFD29062),
+        title: const Text('Tipsy'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
+            },
+            icon: const Icon(Icons.exit_to_app),
+            color: Colors.white,
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFFD29062),
         selectedItemColor: Colors.white,
@@ -39,6 +56,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
           });
         },
       ),
+      // body: const Center(
+      //   child: Text(
+      //     'Dashboard Screen',
+      //     style: TextStyle(
+      //       fontSize: 24,
+      //       fontWeight: FontWeight.bold,
+      //       color: Color(0xFFD29062),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
