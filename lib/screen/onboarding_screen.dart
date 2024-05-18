@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:liquor_ordering_system/screen/login_screen.dart';
@@ -12,94 +14,120 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPageIndex = 0;
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_currentPageIndex < onboardingPages.length - 1) {
+        _currentPageIndex++;
+      } else {
+        _timer.cancel();
+      }
+      _pageController.animateToPage(
+        _currentPageIndex,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          PageView.builder(
-            controller: _pageController,
-            itemCount: onboardingPages.length,
-            itemBuilder: (context, index) {
-              return OnboardingPage(
-                title: onboardingPages[index].title,
-                description: onboardingPages[index].description,
-                imageUrl: onboardingPages[index].imageUrl,
-              );
-            },
-            onPageChanged: (index) {
-              setState(() {
-                _currentPageIndex = index;
-              });
-            },
-          ),
-          Positioned(
-            top: 40,
-            right: 20,
-            child: Visibility(
-              visible: _currentPageIndex != onboardingPages.length - 1,
-              child: TextButton(
-                onPressed: () {
-                  _pageController.jumpToPage(onboardingPages.length - 1);
-                },
-                style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.all(Colors.transparent),
-                ),
-                child: const Text(
-                  'Skip',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFFD29062),
-                  ),
-                ),
-              ),
+      body: Container(
+        child: Stack(
+          children: [
+            PageView.builder(
+              controller: _pageController,
+              itemCount: onboardingPages.length,
+              itemBuilder: (context, index) {
+                return OnboardingPage(
+                  title: onboardingPages[index].title,
+                  description: onboardingPages[index].description,
+                  imageUrl: onboardingPages[index].imageUrl,
+                );
+              },
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPageIndex = index;
+                });
+              },
             ),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 0,
-            right: 0,
-            child: Visibility(
-              visible: _currentPageIndex == onboardingPages.length - 1,
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: ElevatedButton(
+            Positioned(
+              top: 40,
+              right: 20,
+              child: Visibility(
+                visible: _currentPageIndex != onboardingPages.length - 1,
+                child: TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    );
+                    _pageController.jumpToPage(onboardingPages.length - 1);
                   },
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(const Color(0xFFD29062)),
-                    minimumSize: MaterialStateProperty.all(
-                        const Size(double.infinity, 50)),
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
                   ),
                   child: const Text(
-                    'Get Started',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    'Skip',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xFFD29062),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 50,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                onboardingPages.length,
-                (index) => buildDot(index),
+            Positioned(
+              bottom: 20,
+              left: 0,
+              right: 0,
+              child: Visibility(
+                visible: _currentPageIndex == onboardingPages.length - 1,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(const Color(0xFFD29062)),
+                      minimumSize: MaterialStateProperty.all(
+                          const Size(double.infinity, 50)),
+                    ),
+                    child: const Text(
+                      'Get Started',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 50,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  onboardingPages.length,
+                  (index) => buildDot(index),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:liquor_ordering_system/common/my_snack_bar.dart';
 import 'package:liquor_ordering_system/screen/dashboard_screen.dart';
 import 'package:liquor_ordering_system/screen/signup_screen.dart';
+import 'package:liquor_ordering_system/screen/splash_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -77,8 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (value == null || value.isEmpty) {
                           return 'Email Is Required';
                         }
-                        if (!value.contains('@')) {
-                          return 'Please enter a valid email';
+                        if (value != "Admin@gmail.com" ||
+                            value != "admin@gmail.com") {
+                          return 'Email is not valid';
                         }
                         return null;
                       },
@@ -131,6 +133,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Password is required';
+                        }
+                        if (value != "admin") {
+                          return 'Incorrect Password!';
                         }
                         return null;
                       },
@@ -198,7 +203,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SplashScreen()),
+                              );
+                            },
                             child: const Text(
                               "Forgot Password?",
                               textAlign: TextAlign.start,
