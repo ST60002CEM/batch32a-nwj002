@@ -1,7 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:liquor_ordering_system/common/my_snack_bar.dart';
 import 'package:liquor_ordering_system/screen/dashboard_screen.dart';
+import 'package:liquor_ordering_system/screen/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -71,7 +73,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
-                      validator: ValidateLogin.emailValidate,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email Is Required';
+                        }
+                        if (!value.contains('@')) {
+                          return 'Please enter a valid email';
+                        }
+                        return null;
+                      },
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -118,7 +128,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextFormField(
                       controller: _passwordController,
                       obscureText: _obscureTextPassword,
-                      validator: ValidateLogin.password,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password is required';
+                        }
+                        return null;
+                      },
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -206,6 +221,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: MaterialButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
+                            MySnackBar(
+                                message: "Login Successfully",
+                                context: context,
+                                color: Colors.green);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -255,11 +274,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => const SignUpScreen()),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignUpScreen()),
+                              );
                             },
                             child: const Text(
                               "Sign Up",
@@ -287,19 +306,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-class ValidateLogin {
-  static String? emailValidate(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Email is required";
-    }
+// class ValidateLogin {
+//   static String? emailValidate(String? value) {
+//     if (value == null || value.isEmpty) {
+//       return "Email is required";
+//     }
 
-    return null;
-  }
+//     return null;
+//   }
 
-  static String? password(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Password is required";
-    }
-    return null;
-  }
-}
+//   static String? password(String? value) {
+//     if (value == null || value.isEmpty) {
+//       return "Password is required";
+//     }
+//     return null;
+//   }
+// }
