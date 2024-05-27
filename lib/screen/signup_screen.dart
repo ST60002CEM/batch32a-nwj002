@@ -12,7 +12,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscureTextPassword = true;
   bool _obscureTextPasswordConfirm = true;
 
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

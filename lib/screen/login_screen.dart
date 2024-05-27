@@ -51,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
                     style: TextStyle(
+                      fontFamily: 'OpenSans Bold',
                       fontWeight: FontWeight.w700,
                       fontStyle: FontStyle.normal,
                       fontSize: 26,
@@ -62,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
                     style: TextStyle(
+                      fontFamily: 'OpenSans Regular',
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
                       fontSize: 15,
@@ -78,8 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (value == null || value.isEmpty) {
                           return 'Email Is Required';
                         }
-                        if (value != "Admin@gmail.com" ||
-                            value != "admin@gmail.com") {
+                        if (value != "admin@gmail.com") {
                           return 'Email is not valid';
                         }
                         return null;

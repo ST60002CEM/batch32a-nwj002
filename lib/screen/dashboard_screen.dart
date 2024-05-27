@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:liquor_ordering_system/screen/onboarding_screen.dart';
+import 'package:liquor_ordering_system/screen/login_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -22,8 +22,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const OnboardingScreen()),
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
               );
             },
             icon: const Icon(Icons.exit_to_app),
