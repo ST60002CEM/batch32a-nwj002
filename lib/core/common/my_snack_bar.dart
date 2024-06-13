@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:liquor_ordering_system/app/navigator_key/navigator_key.dart';
 
-MySnackBar({
+mySnackBar({
   required String message,
-  required BuildContext context,
   Color? color,
 }) {
-  ScaffoldMessenger.of(context).showSnackBar(
+  ScaffoldMessenger.of(
+    AppNavigator.navigatorKey.currentState!.context,
+  ).showSnackBar(
     SnackBar(
       content: Text(message),
       backgroundColor: color ?? Colors.red,
