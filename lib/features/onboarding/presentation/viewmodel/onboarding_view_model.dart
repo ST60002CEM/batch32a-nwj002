@@ -1,44 +1,19 @@
-import 'dart:async';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:liquor_ordering_system/features/onboarding/presentation/navigator/oboarding_navigator.dart';
 
-import 'package:flutter/material.dart';
-import 'package:liquor_ordering_system/features/onboarding/domain/entity/onboarding_entity.dart';
-import 'package:liquor_ordering_system/features/onboarding/domain/usecases/onboarding_use_case.dart';
+final onboardingViewModelProvider =
+    StateNotifierProvider<OnboardingViewModel, void>((ref) {
+  final navigator = ref.read(onboardingViewNavigatorProvider);
+  return OnboardingViewModel(navigator);
+});
 
-class OnboardingPresenter extends ChangeNotifier {
-  final PageController pageController = PageController();
-  int currentPageIndex = 0;
-  late Timer _timer;
+class OnboardingViewModel extends StateNotifier<void> {
+  OnboardingViewModel(this.navigator) : super(null);
 
-  final List<OnboardingEntity> onboardingPages;
+  final OnboardingViewNavigator navigator;
 
-  OnboardingPresenter() : onboardingPages = OnboardingUseCase().call() {
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (currentPageIndex < onboardingPages.length - 1) {
-        currentPageIndex++;
-      } else {
-        _timer.cancel();
-      }
-      pageController.animateToPage(
-        currentPageIndex,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-      );
-      notifyListeners();
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  void skipToLastPage() {
-    pageController.jumpToPage(onboardingPages.length - 1);
-  }
-
-  void onPageChanged(int index) {
-    currentPageIndex = index;
-    notifyListeners();
+  // Open Login page
+  void openLoginView() {
+    navigator.openLoginView();
   }
 }
