@@ -2,11 +2,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquor_ordering_system/app/navigator/navigator.dart';
 import 'package:liquor_ordering_system/features/auth/presentation/navigator/register_navigator.dart';
 import 'package:liquor_ordering_system/features/auth/presentation/view/login_view.dart';
-
+import 'package:liquor_ordering_system/features/onboarding/presentation/navigator/home_navigator.dart';
 
 final loginViewNavigatorProvider = Provider((ref) => LoginViewNavigator());
 
-class LoginViewNavigator with RegisterViewRoute {}
+class LoginViewNavigator with RegisterViewRoute, HomeViewRoute {
+  void openLoginView() {
+    NavigateRoute.pushRoute(const LoginView());
+  }
+}
 
 mixin LoginViewRoute {
   openLoginView() {

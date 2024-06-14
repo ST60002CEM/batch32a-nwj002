@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:liquor_ordering_system/features/splash/presentation/navigator/splash_navigator.dart';
+import 'package:liquor_ordering_system/features/splash/presentation/viewmodel/splash_view_model.dart';
 
 class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
@@ -12,7 +12,7 @@ class SplashView extends ConsumerStatefulWidget {
 class _SplashViewState extends ConsumerState<SplashView> {
   @override
   void initState() {
-    ref.read(splashViewNavigatorProvider);
+    ref.read(splashViewModelProvider.notifier).openLoginView();
     super.initState();
   }
 

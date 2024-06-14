@@ -32,7 +32,7 @@ class AuthLocalDataSource {
     String password,
   ) async {
     try {
-      AuthHiveModel? users = await _hiveService.login(username, password);
+      AuthHiveModel? user = await _hiveService.login(username, password);
       return const Right(true);
     } catch (e) {
       return Left(Failure(error: e.toString()));

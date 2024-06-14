@@ -1,22 +1,20 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
-import 'package:liquor_ordering_system/core/common/my_snack_bar.dart';
-import 'package:liquor_ordering_system/features/splash/presentation/view/splash_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:liquor_ordering_system/features/auth/presentation/viewmodel/auth_view_model.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
 
   @override
-  _LoginViewState createState() => _LoginViewState();
+  ConsumerState<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
-  // final TextEditingController _usernameController = TextEditingController();
-  // final TextEditingController _passwordController = TextEditingController();
+class _LoginViewState extends ConsumerState<LoginView> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   bool _obscureTextPassword = true;
   final _formKey = GlobalKey<FormState>();
-  // final AuthUseCase _authUseCaseProvider = AuthUseCase();
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +68,15 @@ class _LoginViewState extends State<LoginView> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 30, 0, 16),
                     child: TextFormField(
-                      // controller: _username,
-                      keyboardType: TextInputType.emailAddress,
+                      key: const ValueKey('username'),
+                      controller: _usernameController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter username';
+                        }
+                        return null;
+                      },
+                      // keyboardType: TextInputType.emailAddress,
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -114,9 +119,15 @@ class _LoginViewState extends State<LoginView> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
                     child: TextFormField(
-                      // controller: _passwordController,
+                      key: const ValueKey('password'),
+                      controller: _passwordController,
                       obscureText: _obscureTextPassword,
-                      // validator: _loginUseCase.validatePassword,
+                      validator: ((value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter password';
+                        }
+                        return null;
+                      }),
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -181,11 +192,7 @@ class _LoginViewState extends State<LoginView> {
                           padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SplashView()),
-                              );
+                              //to go to forget password
                             },
                             child: const Text(
                               "Forgot Password?",
@@ -206,15 +213,14 @@ class _LoginViewState extends State<LoginView> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 16),
                     child: MaterialButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          mySnackBar(
-                              message: "Login Successfully",
-                              color: Colors.green);
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => const DashboardScreen()),
-                          // );
+                          await ref
+                              .read(authViewModelProvider.notifier)
+                              .loginUser(
+                                _usernameController.text,
+                                _passwordController.text,
+                              );
                         }
                       },
                       color: const Color(0xFFD29062),
@@ -258,10 +264,9 @@ class _LoginViewState extends State<LoginView> {
                           padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(builder: (context) => const SignUpScreen()),
-                              // );
+                              ref
+                                  .read(authViewModelProvider.notifier)
+                                  .openRegisterView();
                             },
                             child: const Text(
                               "Sign Up",

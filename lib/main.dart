@@ -3,11 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquor_ordering_system/app/app.dart';
 import 'package:liquor_ordering_system/core/networking/local/hive_service.dart';
 
-// void main() {
-//   runApp(const MyApp());
-// }
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveService().init();
@@ -18,5 +13,3 @@ void main() async {
     ),
   );
 }
-
-

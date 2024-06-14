@@ -19,24 +19,24 @@ class AuthHiveModel {
   final String fullname;
 
   @HiveField(2)
-  final String email;
+  final String username;
 
   @HiveField(3)
   final String age;
 
   @HiveField(4)
-  final String username;
+  final String email;
 
   @HiveField(5)
   final String password;
 
   // Constructor
   AuthHiveModel({
-    required String userId,
+    String? userId,
     required this.fullname,
-    required this.email,
-    required this.age,
     required this.username,
+    required this.age,
+    required this.email,
     required this.password,
   }) : userId = userId ?? const Uuid().v4();
 
@@ -45,9 +45,9 @@ class AuthHiveModel {
       : this(
           userId: '',
           fullname: '',
-          email: '',
-          age: '',
           username: '',
+          age: '',
+          email: '',
           password: '',
         );
 
@@ -55,9 +55,9 @@ class AuthHiveModel {
   AuthEntity toEntity() => AuthEntity(
         id: userId,
         fullname: fullname,
-        email: email,
-        age: age,
         username: username,
+        age: age,
+        email: email,
         password: password,
       );
 
@@ -65,9 +65,9 @@ class AuthHiveModel {
   AuthHiveModel toHiveModel(AuthEntity entity) => AuthHiveModel(
         userId: const Uuid().v4(),
         fullname: entity.fullname,
-        email: entity.email,
-        age: entity.age,
         username: entity.username,
+        age: entity.age,
+        email: entity.email,
         password: entity.password,
       );
 
@@ -77,6 +77,6 @@ class AuthHiveModel {
 
   @override
   String toString() {
-    return 'AuthHiveModel(userId: $userId, fullname: $fullname, email: $email, age: $age, username: $username, password: $password)';
+    return 'userId: $userId, fullname: $fullname, username: $username, age: $age, email: $email, password: $password,';
   }
 }

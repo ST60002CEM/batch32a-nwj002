@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquor_ordering_system/core/failure/failure.dart';
@@ -27,5 +25,4 @@ class AuthLocalRepository implements IAuthRepository {
   Future<Either<Failure, bool>> registerUser(AuthEntity user) {
     return _authLocalDataSource.registerUser(user);
   }
- 
 }

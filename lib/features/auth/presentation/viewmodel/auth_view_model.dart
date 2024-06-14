@@ -45,10 +45,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
     data.fold(
       (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
-        mySnackBar(message: failure.error, color: Colors.red);
+        mySnackBar(message: "Invalid credential", color: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
+        mySnackBar(message: "Login successfully");
         openHomeView();
       },
     );
@@ -58,7 +59,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
     navigator.openRegisterView();
   }
 
+  void openLoginView() {
+    navigator.openLoginView();
+  }
+
   void openHomeView() {
-    // navigator.openHomeView();
+    navigator.openHomeView();
   }
 }
