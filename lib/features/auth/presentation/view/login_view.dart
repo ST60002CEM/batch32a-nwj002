@@ -1,24 +1,19 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
-import 'package:liquor_ordering_system/common/my_snack_bar.dart';
-import 'package:liquor_ordering_system/screen/dashboard_screen.dart';
-import 'package:liquor_ordering_system/screen/signup_screen.dart';
-import 'package:liquor_ordering_system/screen/splash_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:liquor_ordering_system/features/auth/presentation/viewmodel/auth_view_model.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginView extends ConsumerStatefulWidget {
+  const LoginView({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  ConsumerState<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController = TextEditingController();
+class _LoginViewState extends ConsumerState<LoginView> {
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _obscureTextPassword = true;
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -70,21 +65,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Color(0xFFD29062),
                     ),
                   ),
-                  // this is email section
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 30, 0, 16),
                     child: TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
+                      key: const ValueKey('username'),
+                      controller: _usernameController,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Email Is Required';
-                        }
-                        if (value != "admin@gmail.com") {
-                          return 'Email is not valid';
+                        if (value!.isEmpty) {
+                          return 'Please enter username';
                         }
                         return null;
                       },
+                      // keyboardType: TextInputType.emailAddress,
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -92,54 +84,50 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Color(0xff000000),
                       ),
                       decoration: InputDecoration(
-                          disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                            borderSide: const BorderSide(
-                                color: Color(0x00ffffff), width: 1),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                            borderSide: const BorderSide(
-                                color: Color(0x00ffffff), width: 1),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                            borderSide: const BorderSide(
-                              color: Color(0x00ffffff),
-                              width: 1,
-                            ),
-                          ),
-                          hintText: "Email",
-                          hintStyle: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 14,
-                            color: Color(0xff9f9d9d),
-                          ),
-                          filled: true,
-                          fillColor: const Color(0x21ffc107),
-                          isDense: false,
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 12),
-                          prefixIcon: const Icon(Icons.mail,
-                              color: Color(0xFFD29062), size: 24)),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: const BorderSide(
+                              color: Color(0x00ffffff), width: 1),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: const BorderSide(
+                              color: Color(0x00ffffff), width: 1),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: const BorderSide(
+                              color: Color(0x00ffffff), width: 1),
+                        ),
+                        hintText: "Email",
+                        hintStyle: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14,
+                          color: Color(0xff9f9d9d),
+                        ),
+                        filled: true,
+                        fillColor: const Color(0x21ffc107),
+                        isDense: false,
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 12),
+                        prefixIcon: const Icon(Icons.mail,
+                            color: Color(0xFFD29062), size: 24),
+                      ),
                     ),
                   ),
-// this is password section
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 16),
                     child: TextFormField(
+                      key: const ValueKey('password'),
                       controller: _passwordController,
                       obscureText: _obscureTextPassword,
-                      validator: (value) {
+                      validator: ((value) {
                         if (value == null || value.isEmpty) {
-                          return 'Password is required';
-                        }
-                        if (value != "admin") {
-                          return 'Incorrect Password!';
+                          return 'Please enter password';
                         }
                         return null;
-                      },
+                      }),
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -193,7 +181,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  // this is forgot password section
                   Align(
                     alignment: Alignment.centerRight,
                     child: Row(
@@ -205,11 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SplashScreen()),
-                              );
+                              //to go to forget password
                             },
                             child: const Text(
                               "Forgot Password?",
@@ -227,43 +210,38 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  // this is login button section
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 16),
                     child: MaterialButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            MySnackBar(
-                                message: "Login Successfully",
-                                context: context,
-                                color: Colors.green);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const DashboardScreen()),
-                            );
-                          }
-                        },
-                        color: const Color(0xFFD29062),
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          await ref
+                              .read(authViewModelProvider.notifier)
+                              .loginUser(
+                                _usernameController.text,
+                                _passwordController.text,
+                              );
+                        }
+                      },
+                      color: const Color(0xFFD29062),
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      textColor: const Color(0xffffffff),
+                      height: 40,
+                      minWidth: MediaQuery.of(context).size.width,
+                      child: const Text(
+                        "Log In",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.normal,
                         ),
-                        padding: const EdgeInsets.all(16),
-                        textColor: const Color(0xffffffff),
-                        height: 40,
-                        minWidth: MediaQuery.of(context).size.width,
-                        child: const Text(
-                          "Log In",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.normal,
-                          ),
-                        )),
+                      ),
+                    ),
                   ),
-                  // this is don't have an account section
                   Align(
                     alignment: Alignment.center,
                     child: Row(
@@ -286,11 +264,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SignUpScreen()),
-                              );
+                              ref
+                                  .read(authViewModelProvider.notifier)
+                                  .openRegisterView();
                             },
                             child: const Text(
                               "Sign Up",
@@ -317,20 +293,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-// class ValidateLogin {
-//   static String? emailValidate(String? value) {
-//     if (value == null || value.isEmpty) {
-//       return "Email is required";
-//     }
-
-//     return null;
-//   }
-
-//   static String? password(String? value) {
-//     if (value == null || value.isEmpty) {
-//       return "Password is required";
-//     }
-//     return null;
-//   }
-// }

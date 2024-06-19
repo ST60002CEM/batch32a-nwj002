@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:liquor_ordering_system/screen/splash_screen.dart';
-import 'package:liquor_ordering_system/theme/theme_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:liquor_ordering_system/app/navigator_key/navigator_key.dart';
+import 'package:liquor_ordering_system/app/themes/app_theme.dart';
+import 'package:liquor_ordering_system/features/splash/presentation/view/splash_view.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends ConsumerWidget {
+  const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
+      navigatorKey: AppNavigator.navigatorKey,
       debugShowCheckedModeBanner: false,
-      theme: getApplicationTheme(),
-      home: const SplashScreen(),
+      title: 'Tipsy',
+      theme: AppTheme.getApplicationTheme(false),
+      home: const SplashView(),
     );
   }
 }
