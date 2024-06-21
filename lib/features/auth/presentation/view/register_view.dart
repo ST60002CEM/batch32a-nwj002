@@ -372,17 +372,31 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // All fields are valid, perform registration or other actions
-                        ref.read(authViewModelProvider.notifier).registerUser(
-                              AuthEntity(
-                                fullname: fullnameController.text,
-                                username: usernameController.text,
-                                password: passwordController.text,
-                                email: emailController.text,
-                                age: ageController.text,
-                              ),
-                            );
+                        // Register
+                        AuthEntity auth = AuthEntity(
+                          fullname: fullnameController.text,
+                          username: usernameController.text,
+                          password: passwordController.text,
+                          email: emailController.text,
+                          age: ageController.text,
+                        );
+                        ref
+                            .read(authViewModelProvider.notifier)
+                            .registerUser(auth);
                       }
+
+                      // if (_formKey.currentState!.validate()) {
+                      //   // All fields are valid, perform registration or other actions
+                      //   ref.read(authViewModelProvider.notifier).registerUser(
+                      //         AuthEntity(
+                      //           fullname: fullnameController.text,
+                      //           username: usernameController.text,
+                      //           password: passwordController.text,
+                      //           email: emailController.text,
+                      //           age: ageController.text,
+                      //         ),
+                      //       );
+                      // }
                     },
                     child: const Text('Register'),
                   ),
