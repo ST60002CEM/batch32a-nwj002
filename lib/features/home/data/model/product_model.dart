@@ -4,14 +4,14 @@ import 'package:json_annotation/json_annotation.dart';
 part 'comments.g.dart';
 
 @JsonSerializable()
-class Product extends Equatable {
+class ProductModel extends Equatable {
   final String productName;
   final String productPrice;
   final String productImage;
   final String productDescription;
   final String productCategory;
 
-  const Product({
+  const ProductModel({
     required this.productName,
     required this.productPrice,
     required this.productImage,
@@ -19,7 +19,7 @@ class Product extends Equatable {
     required this.productCategory,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) =>
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductToJson(this);

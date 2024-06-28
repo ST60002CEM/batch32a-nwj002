@@ -1,7 +1,7 @@
-import 'package:liquor_ordering_system/features/home/data/model/product.dart';
+import 'package:liquor_ordering_system/features/home/data/model/product_model.dart';
 
 class ProductState {
-  final List<Product> product;
+  final List<ProductModel> product;
   final bool hasReachedMax;
   final int page;
   final bool isLoading;
@@ -23,7 +23,7 @@ class ProductState {
   }
 
   ProductState copyWith({
-    List<Product>? products,
+    List<ProductModel>? products,
     bool? hasReachedMax,
     int? page,
     bool? isLoading,
