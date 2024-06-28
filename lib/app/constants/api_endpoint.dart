@@ -7,4 +7,7 @@ class ApiEndpoints {
   //auth routes
   static const String login = "user/login";
   static const String register = "user/create";
+
+  //product routes
+  static const String products = "product/pagination";
 }
