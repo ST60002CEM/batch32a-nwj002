@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/cart_view.dart';
+import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/dashboard_view.dart';
+import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/profile_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -9,6 +12,11 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
+  List<Widget> lstBottomScreen = [
+    const DashboardView(),
+    const CartView(),
+    const ProfileView(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +32,7 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
+      body: lstBottomScreen[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFFD29062),
         selectedItemColor: Colors.white,
