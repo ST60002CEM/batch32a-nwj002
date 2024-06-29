@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,7 +9,8 @@ import 'package:liquor_ordering_system/features/home/data/dto/product_pagination
 import 'package:liquor_ordering_system/features/home/data/model/product_api_model.dart';
 import 'package:liquor_ordering_system/features/home/domain/entity/product_entity.dart';
 
-final productRemoteDataSourceProvider = Provider<ProductRemoteDataSource>((ref) {
+final productRemoteDataSourceProvider =
+    Provider<ProductRemoteDataSource>((ref) {
   final dio = ref.watch(httpServiceProvider);
   final productApiModel = ref.watch(productApiModelProvider);
   final userSharedPrefs = ref.watch(userSharedPrefsProvider);

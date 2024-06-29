@@ -9,5 +9,11 @@ class ApiEndpoints {
   static const String register = "user/create";
 
   //product routes
-  static const String products = "product/pagination";
+  static const String getAllProducts = 'products/get_all_products';
+  static const String updateProduct = 'products/update_Product';
+
+  static const String paginatonProducts = "product/pagination";
+  static const int limitPage = 2;
+
+  static const String imageUrl = 'http://192.168.1.66:5000/products/';
 }
