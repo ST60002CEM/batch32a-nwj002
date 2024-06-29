@@ -33,6 +33,8 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(productViewModelProvider);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
@@ -58,7 +60,7 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                               child: Image.asset(
                                 item['image_path'],
                                 fit: BoxFit.cover,
-                                width: 370,
+                                width: screenWidth * 0.9, // Responsive width
                               ),
                             ),
                           )
@@ -67,7 +69,8 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                       options: CarouselOptions(
                         scrollPhysics: const BouncingScrollPhysics(),
                         autoPlay: true,
-                        aspectRatio: 3,
+                        aspectRatio: screenWidth /
+                            (screenHeight * 0.4), // Responsive aspect ratio
                         viewportFraction: 1,
                         onPageChanged: (index, reason) {
                           setState(() {
@@ -94,13 +97,17 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                 itemCount: state.products.length,
                 itemBuilder: (context, index) {
                   final product = state.products[index];
-                  return Column(
-                    children: [
-                      MyProductCard(
-                        data: product,
-                        onAddToCart: () {},
-                      ),
-                    ],
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal:
+                          screenWidth * 0.05, // Responsive horizontal padding
+                      vertical:
+                          screenHeight * 0.01, // Responsive vertical padding
+                    ),
+                    child: MyProductCard(
+                      data: product,
+                      onAddToCart: () {},
+                    ),
                   );
                 },
               ),

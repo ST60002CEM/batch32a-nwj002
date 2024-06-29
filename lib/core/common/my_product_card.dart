@@ -6,131 +6,123 @@ class MyProductCard extends StatelessWidget {
   final ProductEntity data;
   final VoidCallback onAddToCart;
 
-  const MyProductCard(
-      {required this.data, required this.onAddToCart, super.key});
+  const MyProductCard({
+    required this.data,
+    required this.onAddToCart,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     final imageUrl = '${ApiEndpoints.imageUrl}${data.productImage}';
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
-    return Column(
-      children: [
-        SizedBox(
-          width: 318,
-          height: 130, // Adjusted height to accommodate the button
-          child: Stack(
-            children: [
-              Positioned(
-                left: 0,
-                top: 0,
-                child: Container(
-                  width: 318,
-                  height: 99,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: screenHeight * 0.01, // Spacing between cards
+      ),
+      child: Container(
+        width: screenWidth * 0.9, // Responsive width
+        padding: const EdgeInsets.all(8), // Internal padding
+        decoration: ShapeDecoration(
+          color: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          shadows: const [
+            BoxShadow(
+              color: Color(0x3F000000),
+              blurRadius: 4,
+              offset: Offset(0, 0),
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: screenWidth * 0.3, // Responsive image width
+              height: screenHeight * 0.15, // Responsive image height
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(imageUrl),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            SizedBox(
+                width: screenWidth * 0.03), // Spacing between image and text
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.productName,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: screenWidth * 0.04, // Responsive font size
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      height: 1.2,
                     ),
-                    shadows: const [
-                      BoxShadow(
-                        color: Color(0x3F000000),
-                        blurRadius: 4,
-                        offset: Offset(0, 0),
-                        spreadRadius: 0,
+                  ),
+                  SizedBox(height: screenHeight * 0.01),
+                  Text(
+                    '${data.productCategory} | 5%',
+                    style: TextStyle(
+                      color: const Color(0xFF979797),
+                      fontSize: screenWidth * 0.03, // Responsive font size
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      height: 1.2,
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                  Row(
+                    children: [
+                      Text(
+                        'Rs.',
+                        style: TextStyle(
+                          color: const Color(0xFFD29062),
+                          fontSize: screenWidth * 0.04, // Responsive font size
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          height: 1.2,
+                        ),
+                      ),
+                      SizedBox(width: screenWidth * 0.01),
+                      Text(
+                        data.productPrice.toString(),
+                        style: TextStyle(
+                          color: const Color(0xFFD29062),
+                          fontSize: screenWidth * 0.04, // Responsive font size
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          height: 1.2,
+                        ),
+                      ),
+                      const Spacer(),
+                      ElevatedButton(
+                        onPressed: onAddToCart,
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.orange,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text('Add to Cart'),
                       ),
                     ],
                   ),
-                ),
+                ],
               ),
-              Positioned(
-                left: 1,
-                top: 0,
-                child: Container(
-                  width: 81,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(imageUrl),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 81,
-                top: 15,
-                child: Text(
-                  data.productName,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 106,
-                top: 55,
-                child: Text(
-                  data.productPrice.toString(),
-                  style: const TextStyle(
-                    color: Color(0xFFD29062),
-                    fontSize: 17,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 81,
-                top: 55,
-                child: Text(
-                  'Rs.',
-                  style: TextStyle(
-                    color: Color(0xFFD29062),
-                    fontSize: 17,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 81,
-                top: 35,
-                child: Text(
-                  '${data.productCategory}  |  5%',
-                  style: const TextStyle(
-                    color: Color(0xFF979797),
-                    fontSize: 10,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    height: 0,
-                  ),
-                ),
-              ),
-              Positioned(
-                right: 8,
-                top: 45, // Adjusted top position to move the button higher
-                child: ElevatedButton(
-                  onPressed: onAddToCart,
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.orange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text('Add to Cart'),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
