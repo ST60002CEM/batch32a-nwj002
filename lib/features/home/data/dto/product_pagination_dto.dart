@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:liquor_ordering_system/features/home/data/model/product_api_model.dart';
 
-part 'pagination_dto.g.dart';
+part 'product_pagination_dto.g.dart';
 
 @JsonSerializable()
 class ProductPaginationDto {
@@ -15,8 +15,8 @@ class ProductPaginationDto {
     required this.products,
   });
 
-  Map<String, dynamic> toJson() => _$PaginationDtoToJson(this);
+  Map<String, dynamic> toJson() => _$ProductPaginationDtoToJson(this);
 
   factory ProductPaginationDto.fromJson(Map<String, dynamic> json) =>
-      _$PaginationDtoFromJson(json);
+      _$ProductPaginationDtoFromJson(json);
 }
