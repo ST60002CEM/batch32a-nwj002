@@ -7,12 +7,12 @@ part 'product_pagination_dto.g.dart';
 class ProductPaginationDto {
   final bool success;
   final String message;
-  final List<ProductApiModel> products;
+  final List<ProductApiModel> data;
 
   ProductPaginationDto({
     required this.success,
     required this.message,
-    required this.products,
+    required this.data,
   });
 
   Map<String, dynamic> toJson() => _$ProductPaginationDtoToJson(this);

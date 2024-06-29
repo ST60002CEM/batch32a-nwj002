@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquor_ordering_system/core/failure/failure.dart';
@@ -21,6 +20,4 @@ class ProductRemoteRepository implements IProductRepository {
   Future<Either<Failure, List<ProductEntity>>> pagination(int page, int limit) {
     return productRemoteDataSource.pagination(page: page, limit: limit);
   }
-  
-  
 }

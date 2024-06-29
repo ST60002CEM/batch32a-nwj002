@@ -49,9 +49,9 @@ class ProductRemoteDataSource {
           },
         ),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         final paginationDto = ProductPaginationDto.fromJson(response.data);
-        return Right(productApiModel.toEntityList(paginationDto.products));
+        return Right(productApiModel.toEntityList(paginationDto.data));
       }
       return Left(Failure(
           error: response.data['message'],

@@ -9,8 +9,8 @@ class ApiEndpoints {
   static const String register = "user/create";
 
   //product routes
-  static const String getAllProducts = 'products/get_all_products';
-  static const String updateProduct = 'products/update_Product';
+  static const String getAllProducts = 'product/get_all_products';
+  static const String updateProduct = 'product/update_Product';
 
   static const String paginatonProducts = "product/pagination";
   static const int limitPage = 2;

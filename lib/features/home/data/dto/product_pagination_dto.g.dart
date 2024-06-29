@@ -11,7 +11,7 @@ ProductPaginationDto _$ProductPaginationDtoFromJson(
     ProductPaginationDto(
       success: json['success'] as bool,
       message: json['message'] as String,
-      products: (json['products'] as List<dynamic>)
+      data: (json['data'] as List<dynamic>)
           .map((e) => ProductApiModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -21,5 +21,5 @@ Map<String, dynamic> _$ProductPaginationDtoToJson(
     <String, dynamic>{
       'success': instance.success,
       'message': instance.message,
-      'products': instance.products,
+      'data': instance.data,
     };
