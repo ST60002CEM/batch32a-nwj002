@@ -1,4 +1,4 @@
-import 'package:liquor_ordering_system/features/home/data/model/product_model.dart';
+import 'package:liquor_ordering_system/features/home/data/model/product_api_model.dart';
 
 class ProductState {
   final List<ProductModel> product;
