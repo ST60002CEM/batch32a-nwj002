@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:liquor_ordering_system/core/failure/failure.dart';
 import 'package:liquor_ordering_system/features/auth/domain/usecases/auth_use_case.dart';
 import 'package:liquor_ordering_system/features/auth/presentation/navigator/login_navigator.dart';
+import 'package:liquor_ordering_system/features/auth/presentation/navigator/register_navigator.dart';
 import 'package:liquor_ordering_system/features/auth/presentation/viewmodel/auth_view_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -13,6 +14,8 @@ import 'auth_test.mocks.dart';
 @GenerateNiceMocks([
   MockSpec<AuthUseCase>(),
   MockSpec<LoginViewNavigator>(),
+  MockSpec<RegisterViewNavigator>(),
+
 ])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +23,7 @@ void main() {
   late AuthUseCase mockAuthUsecase;
   late ProviderContainer container;
   late LoginViewNavigator mockLoginViewNavigator;
+
 
   setUp(
     () {
@@ -40,9 +44,6 @@ void main() {
   });
 
   test('loggin test with valid username and password', () async {
-    //arrange
-    // when(mockAuthUsecase.loginStudent('kiran', 'kiran123'))
-    //     .thenAnswer((_) => Future.value(const Right(true)));
 
     //arrange
     const correctUsername = 'nwj';
