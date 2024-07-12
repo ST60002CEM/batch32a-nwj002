@@ -29,7 +29,7 @@ void main() {
     );
   });
 
-  test(' product list on success', () async {
+  test('ProductUseCase should return product list on success', () async {
     when(mockProductUseCase.pagination(any, any))
         .thenAnswer((_) async => Right(lstProducts));
 

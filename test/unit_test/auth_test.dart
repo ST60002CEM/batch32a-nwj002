@@ -172,7 +172,7 @@ void main() {
     // Act
     await container
         .read(authViewModelProvider.notifier)
-        .loginUser('nwj02', 'helloworld123');
+        .loginUser('nwj02', 'helloworld12345');
 
     final authState = container.read(authViewModelProvider);
 
