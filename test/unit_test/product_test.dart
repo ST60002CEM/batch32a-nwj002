@@ -29,7 +29,16 @@ void main() {
     );
   });
 
- 
+  test('ProductUseCase should return product list on success', () async {
+    when(mockProductUseCase.pagination(any, any))
+        .thenAnswer((_) async => Right(lstProducts));
+
+    await container.read(productViewModelProvider.notifier).getProducts();
+
+    final productState = container.read(productViewModelProvider);
+
+    expect(productState.isLoading, false);
+  });
   tearDown(
     () {
       container.dispose();
