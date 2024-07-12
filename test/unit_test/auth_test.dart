@@ -155,6 +155,31 @@ void main() {
     expect(authState.error, isNull);
   });
 
+  test('login test with invalid username and password', () async {
+    // Arrange
+    const correctUsername = 'nwj02';
+    const correctPassword = '1234567890';
+
+    when(mockAuthUsecase.loginUser(any, any)).thenAnswer((invocation) {
+      final username = invocation.positionalArguments[0] as String;
+      final password = invocation.positionalArguments[1] as String;
+      return Future.value(
+          username == correctUsername && password == correctPassword
+              ? const Right(true)
+              : Left(Failure(error: 'Invalid Credentails')));
+    });
+
+    // Act
+    await container
+        .read(authViewModelProvider.notifier)
+        .loginUser('nwj02', 'helloworld123');
+
+    final authState = container.read(authViewModelProvider);
+
+    // Assert
+    expect(authState.error, isNull);
+  });
+
   // test("register with user credientials", () async {
   //   when(mockAuthUsecase.registerUser(any))
   //       .thenAnswer((_) => Future.value(const Right(true)));
