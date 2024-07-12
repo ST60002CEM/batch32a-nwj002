@@ -111,6 +111,42 @@ void main() {
     },
   );
 
+  test("Register new user existing", () async {
+    const authEntity = AuthEntity(
+      fullname: 'Nawaraj',
+      username: 'nwj0',
+      password: '1234567890',
+      age: '22',
+      email: 'nwj@gmail.com',
+    );
+
+    const existingUserEntity = AuthEntity(
+      fullname: 'Nawaraj',
+      username: 'nwj1',
+      password: '1234567890',
+      age: '22',
+      email: 'nwj@gmail.com',
+    );
+
+    when(mockAuthUsecase.registerUser(any)).thenAnswer((invocation) {
+      final authEntity = invocation.positionalArguments[0] as AuthEntity;
+
+      return Future.value(authEntity.username != existingUserEntity.username
+          ? const Right(true)
+          : Left(Failure(error: 'User already exists')));
+    });
+
+    // Act
+    await container
+        .read(authViewModelProvider.notifier)
+        .registerUser(authEntity);
+
+    final authState = container.read(authViewModelProvider);
+
+    // Assert
+    expect(authState.error, isNull);
+  });
+
   // test("register with user credientials", () async {
   //   when(mockAuthUsecase.registerUser(any))
   //       .thenAnswer((_) => Future.value(const Right(true)));
