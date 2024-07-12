@@ -110,14 +110,14 @@ void main() {
       expect(state.error, null);
     },
   );
-
+//register new user with existing username then it should show error else it should register the user
   test("Register new user existing", () async {
     const authEntity = AuthEntity(
       fullname: 'Nawaraj',
       username: 'nwj0',
       password: '1234567890',
       age: '22',
-      email: 'nwj@gmail.com',
+      email: 'nwj0@gmail.com',
     );
 
     const existingUserEntity = AuthEntity(
@@ -125,7 +125,7 @@ void main() {
       username: 'nwj1',
       password: '1234567890',
       age: '22',
-      email: 'nwj@gmail.com',
+      email: 'nwj1@gmail.com',
     );
 
     when(mockAuthUsecase.registerUser(any)).thenAnswer((invocation) {
@@ -134,6 +134,14 @@ void main() {
       return Future.value(authEntity.username != existingUserEntity.username
           ? const Right(true)
           : Left(Failure(error: 'User already exists')));
+    });
+
+    when(mockAuthUsecase.registerUser(any)).thenAnswer((invocation) {
+      final authEntity = invocation.positionalArguments[0] as AuthEntity;
+
+      return Future.value(authEntity.email != existingUserEntity.email
+          ? const Right(true)
+          : Left(Failure(error: 'email already exists')));
     });
 
     // Act
