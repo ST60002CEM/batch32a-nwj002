@@ -51,6 +51,11 @@ dependencies:
   permission_handler: ^11.3.1
   json_annotation: ^4.9.0
   carousel_slider: ^4.2.1
+  connectivity_plus: ^4.0.1
+  mockito: ^5.4.4
+  all_sensors2: ^1.0.1
+  awesome_dialog: ^3.2.1
+  test_cov_console: ^0.2.2
 
 dev_dependencies:
   flutter_test:

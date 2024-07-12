@@ -12,7 +12,7 @@ class HomeViewModel extends StateNotifier<bool> {
   final HomeViewNavigator homeNavigator;
 
   void logout() async {
-    mySnackBar(message: 'Logging out....', color: Colors.red);
+    mySnackBar(message: 'Logging out.', color: Colors.red);
     await Future.delayed(const Duration(seconds: 1));
     openLoginView();
   }

@@ -3,18 +3,18 @@ import 'package:liquor_ordering_system/features/home/domain/usecases/product_use
 import 'package:liquor_ordering_system/features/home/presentation/state/product_state.dart';
 
 final productViewModelProvider =
-    StateNotifierProvider<ProductViewmodel, ProductState>(
-        (ref) => ProductViewmodel(
+    StateNotifierProvider<ProductViewModel, ProductState>(
+        (ref) => ProductViewModel(
               productUsecase: ref.watch(productUsecaseProvider),
             ));
 
-class ProductViewmodel extends StateNotifier<ProductState> {
-  ProductViewmodel({required this.productUsecase})
+class ProductViewModel extends StateNotifier<ProductState> {
+  ProductViewModel({required this.productUsecase})
       : super(ProductState.initial()) {
     getProducts();
   }
 
-  final ProductUsecase productUsecase;
+  final ProductUseCase productUsecase;
 
   Future resetState() async {
     state = ProductState.initial();

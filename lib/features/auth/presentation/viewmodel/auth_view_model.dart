@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:liquor_ordering_system/core/common/my_snack_bar.dart';
 import 'package:liquor_ordering_system/features/auth/domain/entity/auth_entity.dart';
 import 'package:liquor_ordering_system/features/auth/domain/usecases/auth_use_case.dart';
 import 'package:liquor_ordering_system/features/auth/presentation/navigator/login_navigator.dart';
@@ -27,11 +25,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
           isLoading: false,
           error: failure.error,
         );
-        mySnackBar(message: failure.error, color: Colors.red);
+        // mySnackBar(message: failure.error, color: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
-        mySnackBar(message: "Successfully registered");
+        // mySnackBar(message: "Successfully registered");
       },
     );
   }
@@ -45,11 +43,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
     data.fold(
       (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
-        mySnackBar(message: "Invalid credential", color: Colors.red);
+        // mySnackBar(message: "Invalid credential", color: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
-        mySnackBar(message: "Login successfully");
+        // mySnackBar(message: "Login successfully");
         openHomeView();
       },
     );
