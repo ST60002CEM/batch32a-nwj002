@@ -1,7 +1,13 @@
+import 'dart:async';
+
+import 'package:all_sensors2/all_sensors2.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquor_ordering_system/core/common/my_product_card.dart';
+import 'package:liquor_ordering_system/core/common/my_snack_bar.dart';
+import 'package:liquor_ordering_system/features/home/presentation/viewmodel/home_viewmodel.dart';
 import 'package:liquor_ordering_system/features/home/presentation/viewmodel/products_viewmodel.dart';
 
 class DashboardView extends ConsumerStatefulWidget {
@@ -13,6 +19,9 @@ class DashboardView extends ConsumerStatefulWidget {
 
 class _DashboardViewState extends ConsumerState<DashboardView> {
   final ScrollController _scrollController = ScrollController();
+
+  bool showYesNoDialog = true;
+  bool isDialogShowing = false;
 
   List imageList = [
     {"id": 1, "image_path": 'assets/images/b1.jpg'},
@@ -28,6 +37,49 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  List<double> _gyroscopeValues = [];
+  final List<StreamSubscription<dynamic>> _streamSubscription = [];
+
+  @override
+  void initState() {
+    _streamSubscription.add(gyroscopeEvents!.listen((GyroscopeEvent event) {
+      setState(() {
+        _gyroscopeValues = <double>[event.x, event.y, event.z];
+
+        _checkGyroscopeValues(_gyroscopeValues);
+      });
+    }));
+
+    super.initState();
+  }
+
+  void _checkGyroscopeValues(List<double> values) async {
+    const double threshold = 3; // Example threshold value, adjust as needed
+    if (values.any((value) => value.abs() > threshold)) {
+      if (showYesNoDialog && !isDialogShowing) {
+        isDialogShowing = true;
+        final result = await AwesomeDialog(
+          context: context,
+          dialogType: DialogType.warning,
+          title: 'Logout',
+          desc: 'Are You Sure You Want To Logout?',
+          btnOkOnPress: () {
+            ref.read(homeViewModelProvider.notifier).logout();
+          },
+          btnCancelOnPress: () {},
+        ).show();
+
+        isDialogShowing = false;
+        if (result) {
+          mySnackBar(
+            message: 'Logged Out Successfully!',
+            color: Colors.green,
+          );
+        }
+      }
+    }
   }
 
   @override
