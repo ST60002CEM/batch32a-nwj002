@@ -13,6 +13,8 @@ import 'package:liquor_ordering_system/features/auth/domain/usecases/auth_use_ca
     as _i3;
 import 'package:liquor_ordering_system/features/auth/presentation/navigator/login_navigator.dart'
     as _i7;
+import 'package:liquor_ordering_system/features/auth/presentation/navigator/register_navigator.dart'
+    as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -122,3 +124,9 @@ class MockLoginViewNavigator extends _i1.Mock
         returnValueForMissingStub: null,
       );
 }
+
+/// A class which mocks [RegisterViewNavigator].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRegisterViewNavigator extends _i1.Mock
+    implements _i8.RegisterViewNavigator {}

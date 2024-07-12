@@ -36,18 +36,21 @@ void main() {
       );
     },
   );
+
+  //check initial state
   test("check for the initial state in the auth state", () {
     final authState = container.read(authViewModelProvider);
     expect(authState.isLoading, false);
     expect(authState.error, isNull);
   });
 
+  //login test with valid username and password
   test('login test with valid username and password', () async {
     //arrange
     const correctUsername = 'nwj';
     const correctPassword = 'nwj123';
 
-    when(mockAuthUsecase.loginUser('nwj', 'nwj123')).thenAnswer((invocation) {
+    when(mockAuthUsecase.loginUser(any, any)).thenAnswer((invocation) {
       final username = invocation.positionalArguments[0] as String;
       final password = invocation.positionalArguments[1] as String;
       return Future.value(
@@ -66,17 +69,12 @@ void main() {
     expect(authState.error, isNull);
   });
 
+//create an account with all details
   test(
     'Register new user test with all details test',
     () async {
       // Arrange
-      when(mockAuthUsecase.registerUser(const AuthEntity(
-        fullname: 'nawaraj',
-        username: 'nwj',
-        email: 'nwj@gmail.com',
-        password: '12345678',
-        age: '18',
-      ))).thenAnswer((innovation) {
+      when(mockAuthUsecase.registerUser(any)).thenAnswer((innovation) {
         final auth = innovation.positionalArguments[0] as AuthEntity;
 
         return Future.value(
@@ -116,7 +114,6 @@ void main() {
   // test("register with user credientials", () async {
   //   when(mockAuthUsecase.registerUser(any))
   //       .thenAnswer((_) => Future.value(const Right(true)));
-
   //   const AuthEntity user = AuthEntity(
   //     fullname: 'nawaraj',
   //     username: 'nwj',
