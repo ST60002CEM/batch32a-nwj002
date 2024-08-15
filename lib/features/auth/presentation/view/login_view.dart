@@ -10,8 +10,10 @@ class LoginView extends ConsumerStatefulWidget {
 }
 
 class _LoginViewState extends ConsumerState<LoginView> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController =
+      TextEditingController(text: 'nwj@gmail.com');
+  final TextEditingController _passwordController =
+      TextEditingController(text: '1234567890');
 
   bool _obscureTextPassword = true;
   final _formKey = GlobalKey<FormState>();
@@ -213,14 +215,10 @@ class _LoginViewState extends ConsumerState<LoginView> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 16),
                     child: MaterialButton(
-                      onPressed: () async {
+                      onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          await ref
-                              .read(authViewModelProvider.notifier)
-                              .loginUser(
-                                _emailController.text,
-                                _passwordController.text,
-                              );
+                          ref.watch(authViewModelProvider.notifier).loginUser(
+                              _emailController.text, _passwordController.text);
                         }
                       },
                       color: const Color(0xFFD29062),

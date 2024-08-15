@@ -4,50 +4,45 @@ import 'package:liquor_ordering_system/features/auth/domain/usecases/auth_use_ca
 import 'package:liquor_ordering_system/features/auth/presentation/navigator/login_navigator.dart';
 import 'package:liquor_ordering_system/features/auth/presentation/state/auth_state.dart';
 
-final authViewModelProvider = StateNotifierProvider<AuthViewModel, AuthState>(
-  (ref) => AuthViewModel(
+final authViewModelProvider =
+    StateNotifierProvider<AuthViewModel, AuthState>((ref) {
+  return AuthViewModel(
     ref.read(loginViewNavigatorProvider),
     ref.read(authUseCaseProvider),
-  ),
-);
+  );
+});
 
 class AuthViewModel extends StateNotifier<AuthState> {
   AuthViewModel(this.navigator, this.authUseCase) : super(AuthState.initial());
   final AuthUseCase authUseCase;
   final LoginViewNavigator navigator;
 
-  Future<void> registerUser(AuthEntity user) async {
+  Future<void> registerUser(AuthEntity auth) async {
     state = state.copyWith(isLoading: true);
-    var data = await authUseCase.registerUser(user);
+    var data = await authUseCase.registerUser(auth);
     data.fold(
-      (failure) {
-        state = state.copyWith(
-          isLoading: false,
-          error: failure.error,
-        );
-        // mySnackBar(message: failure.error, color: Colors.red);
+      (l) {
+        state = state.copyWith(isLoading: false, error: l.error);
+        // showMySnackBar(message: l.error, color: Colors.red);
       },
-      (success) {
-        state = state.copyWith(isLoading: false, error: null);
-        // mySnackBar(message: "Successfully registered");
+      (r) {
+        state = state.copyWith(isLoading: false);
+        // showMySnackBar(message: 'Register Success');
       },
     );
   }
 
-  Future<void> loginUser(
-    String username,
-    String password,
-  ) async {
+  void loginUser(String email, String password) async {
     state = state.copyWith(isLoading: true);
-    var data = await authUseCase.loginUser(username, password);
+    var data = await authUseCase.loginUser(email, password);
     data.fold(
-      (failure) {
-        state = state.copyWith(isLoading: false, error: failure.error);
-        // mySnackBar(message: "Invalid credential", color: Colors.red);
+      (l) {
+        state = state.copyWith(isLoading: false, error: l.error);
+        // mySnackBar(message: l.error, color: Colors.red);
       },
-      (success) {
+      (r) {
         state = state.copyWith(isLoading: false, error: null);
-        // mySnackBar(message: "Login successfully");
+        // mySnackBar(message: 'Login Success');
         openHomeView();
       },
     );

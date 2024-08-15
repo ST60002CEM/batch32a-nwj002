@@ -12,16 +12,31 @@ final authRemoteRepositoryProvider = Provider<IAuthRepository>((ref) {
 });
 
 class AuthRemoteRepository implements IAuthRepository {
-  final AuthRemoteDataSource _authRemoteDataSource;
-  AuthRemoteRepository(this._authRemoteDataSource);
+  final AuthRemoteDataSource authRemoteDataSource;
+  AuthRemoteRepository(this.authRemoteDataSource);
 
   @override
   Future<Either<Failure, bool>> loginUser(String email, String password) {
-    return _authRemoteDataSource.loginUser(email, password);
+    return authRemoteDataSource.loginUser(email: email, password: password);
   }
 
   @override
   Future<Either<Failure, bool>> registerUser(AuthEntity user) {
-    return _authRemoteDataSource.registerUser(user);
+    return authRemoteDataSource.registerUser(user);
+  }
+
+  @override
+  Future<Either<Failure, bool>> verifyUser() {
+    return authRemoteDataSource.verifyUser();
+  }
+
+  @override
+  Future<Either<Failure, AuthEntity>> getCurrentUser() {
+    return authRemoteDataSource.getMe();
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateUser(AuthEntity user) {
+    return authRemoteDataSource.updateUser(user);
   }
 }
