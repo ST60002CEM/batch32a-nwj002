@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/cart_view.dart';
 import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/dashboard_view.dart';
-import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/profile_view.dart';
+import 'package:liquor_ordering_system/features/profile/presentation/view/profile_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

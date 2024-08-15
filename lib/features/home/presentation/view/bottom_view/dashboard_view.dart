@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquor_ordering_system/core/common/my_product_card.dart';
 import 'package:liquor_ordering_system/core/common/my_snack_bar.dart';
+import 'package:liquor_ordering_system/features/cart/domain/entity/cart_entity.dart';
+import 'package:liquor_ordering_system/features/home/domain/entity/product_entity.dart';
 import 'package:liquor_ordering_system/features/home/presentation/viewmodel/home_viewmodel.dart';
 import 'package:liquor_ordering_system/features/home/presentation/viewmodel/products_viewmodel.dart';
 
@@ -36,6 +38,9 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
   @override
   void dispose() {
     _scrollController.dispose();
+    for (final subscription in _streamSubscription) {
+      subscription.cancel(); // Cancel all stream subscriptions
+    }
     super.dispose();
   }
 
@@ -125,9 +130,12 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                             (screenHeight * 0.4), // Responsive aspect ratio
                         viewportFraction: 1,
                         onPageChanged: (index, reason) {
-                          setState(() {
-                            currentIndex = index;
-                          });
+                          if (mounted) {
+                            // Check if the widget is still mounted
+                            setState(() {
+                              currentIndex = index;
+                            });
+                          }
                         },
                       ),
                     ),
@@ -158,7 +166,9 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
                     ),
                     child: MyProductCard(
                       data: product,
-                      onAddToCart: () {},
+                      onAddToCart: () {
+                        _addToCart(product);
+                      },
                     ),
                   );
                 },
@@ -172,6 +182,21 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _addToCart(ProductEntity products) {
+    final cartEntity = CartEntity(
+      productEntity: products,
+      quantity: 1,
+      total: products.productPrice.toDouble(),
+    );
+    ref.read(productViewModelProvider.notifier).addToCart(cartEntity);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('${products.productName} added to cart'),
+        backgroundColor: Colors.green,
       ),
     );
   }

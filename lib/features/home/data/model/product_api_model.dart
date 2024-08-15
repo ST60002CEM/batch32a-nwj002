@@ -5,7 +5,6 @@ import 'package:liquor_ordering_system/features/home/domain/entity/product_entit
 
 part 'product_api_model.g.dart';
 
-
 //provider
 final productApiModelProvider =
     Provider<ProductApiModel>((ref) => const ProductApiModel.empty());
@@ -13,7 +12,7 @@ final productApiModelProvider =
 @JsonSerializable()
 class ProductApiModel extends Equatable {
   @JsonKey(name: '_id')
-  final String? id;
+  final String id;
   final String productName;
   final int productPrice;
   final String productImage;
@@ -37,20 +36,15 @@ class ProductApiModel extends Equatable {
         productCategory = '',
         productDescription = '';
 
-  factory ProductApiModel.fromJson(Map<String, dynamic> json) =>
-      _$ProductApiModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ProductApiModelToJson(this);
-
   // To Entity
   ProductEntity toEntity() {
     return ProductEntity(
       id: id,
       productName: productName,
-      productPrice: productPrice,
-      productImage: productImage,
       productCategory: productCategory,
+      productPrice: productPrice,
       productDescription: productDescription,
+      productImage: productImage,
     );
   }
 
@@ -67,13 +61,18 @@ class ProductApiModel extends Equatable {
   }
 
   //Convert API List to Entity List
-  List<ProductEntity> toEntityList(List<ProductApiModel> products) {
-    return products.map((product) => product.toEntity()).toList();
+  List<ProductEntity> toEntityList(List<ProductApiModel> modelList) {
+    return modelList.map((model) => model.toEntity()).toList();
   }
 
-  List<ProductApiModel> fromEntityList(List<ProductEntity> products) {
-    return products.map((product) => ProductApiModel.fromEntity(product)).toList();
+  List<ProductApiModel> fromEntityList(List<ProductEntity> entityList) {
+    return entityList
+        .map((entity) => ProductApiModel.fromEntity(entity))
+        .toList();
   }
+
+  factory ProductApiModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductApiModelFromJson(json);
 
   @override
   List<Object?> get props => [
