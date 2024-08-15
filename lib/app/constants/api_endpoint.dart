@@ -7,6 +7,9 @@ class ApiEndpoints {
   //auth routes
   static const String login = "user/login";
   static const String register = "user/create";
+  static const String getMe = "user/get_single_user";
+  static const String verifyUser = "user/verify";
+  static const String updateUser = "user/update";
 
   //product routes
   static const String getAllProducts = 'product/get_all_products';
@@ -16,4 +19,8 @@ class ApiEndpoints {
   static const int limitPage = 2;
 
   static const String imageUrl = 'http://192.168.1.66:5000/products/';
+
+  //add to cart routes
+  static const String addToCart = 'cart/addToCart';
+  static const String getCart = 'cart/getCart';
 }
