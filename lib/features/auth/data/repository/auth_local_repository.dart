@@ -43,4 +43,19 @@ class AuthLocalRepository implements IAuthRepository {
     // TODO: implement verifyUser
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, bool>> resetPass(
+      {required String phone,
+      required String newPassword,
+      required String otp}) {
+    // TODO: implement resetPass
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> sendOtp(String phone) {
+    // TODO: implement sendOtp
+    throw UnimplementedError();
+  }
 }

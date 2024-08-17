@@ -7,7 +7,9 @@ final profileNavigatorProvider = Provider<ProfileNavigator>((ref) {
   return ProfileNavigator();
 });
 
-class ProfileNavigator with LoginViewRoute {}
+class ProfileNavigator with LoginViewRoute {
+  void openPlaceOrderView() {}
+}
 
 mixin ProfileRoute {
   openProfile() {

@@ -17,7 +17,9 @@
 //   ConnectivityStatusNotifier() : super(ConnectivityStatus.isConnected) {
 //     lastResult = state;
 
-//     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+//     Connectivity()
+//         .onConnectivityChanged
+//         .listen((List<ConnectivityResult> result) {
 //       if (result == ConnectivityResult.mobile ||
 //           result == ConnectivityResult.wifi) {
 //         newState = ConnectivityStatus.isConnected;

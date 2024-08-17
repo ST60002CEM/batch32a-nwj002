@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:liquor_ordering_system/core/failure/failure.dart';
 import 'package:liquor_ordering_system/features/auth/domain/entity/auth_entity.dart';
 import 'package:liquor_ordering_system/features/auth/domain/usecases/auth_use_case.dart';
@@ -59,9 +61,7 @@ void main() {
               : Left(Failure(error: 'Invalid')));
     });
     //act
-    await container
-        .read(authViewModelProvider.notifier)
-        .loginUser('nwj', 'nwj123');
+    container.read(authViewModelProvider.notifier).loginUser('nwj', 'nwj123');
 
     final authState = container.read(authViewModelProvider);
 
@@ -83,8 +83,8 @@ void main() {
                   auth.email.isNotEmpty &&
                   auth.password.isNotEmpty &&
                   auth.email.contains('@') &&
-                  auth.email.contains('.') &&
-                  auth.age.isNotEmpty
+                  auth.email.contains('.') 
+                  // auth.age.isNotEmpty
               ? const Right(true)
               : Left(
                   Failure(error: 'Invalid'),
@@ -93,15 +93,14 @@ void main() {
       });
 
       // Act
-      await container
-          .read(authViewModelProvider.notifier)
-          .registerUser(const AuthEntity(
-            fullname: 'nawaraj',
-            username: 'nwj',
-            email: 'nwj@gmail.com',
-            password: '12345678',
-            age: '18',
-          ));
+      await container.read(authViewModelProvider.notifier).registerUser(
+          const AuthEntity(
+              fullname: 'nawaraj',
+              username: 'nwj',
+              email: 'nwj@gmail.com',
+              password: '12345678',
+              age: 18,
+              phone: 0987654321));
 
       final state = container.read(authViewModelProvider);
 
@@ -116,16 +115,18 @@ void main() {
       fullname: 'Nawaraj',
       username: 'nwj0',
       password: '1234567890',
-      age: '22',
+      age: 22,
       email: 'nwj0@gmail.com',
+      phone: 1234567890,
     );
 
     const existingUserEntity = AuthEntity(
       fullname: 'Nawaraj',
       username: 'nwj1',
       password: '1234567890',
-      age: '22',
+      age: 22,
       email: 'nwj1@gmail.com',
+      phone: 1234567890,
     );
 
     when(mockAuthUsecase.registerUser(any)).thenAnswer((invocation) {
@@ -170,8 +171,9 @@ void main() {
     });
 
     // Act
-    await container
+    container
         .read(authViewModelProvider.notifier)
+        // .loginUser('nwj02', 'helloworld12345');
         .loginUser('nwj02', 'helloworld12345');
 
     final authState = container.read(authViewModelProvider);

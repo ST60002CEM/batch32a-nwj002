@@ -7,8 +7,6 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:liquor_ordering_system/core/failure/failure.dart' as _i6;
-import 'package:liquor_ordering_system/core/shared_prefs/user_shared_prefs.dart'
-    as _i8;
 import 'package:liquor_ordering_system/features/home/domain/entity/product_entity.dart'
     as _i7;
 import 'package:liquor_ordering_system/features/home/domain/repository/i_product_repository.dart'
@@ -115,87 +113,4 @@ class MockProductUseCase extends _i1.Mock implements _i4.ProductUseCase {
         ),
         returnValueForMissingStub: null,
       );
-}
-
-/// A class which mocks [UserSharedPrefs].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockUserSharedPrefs extends _i1.Mock implements _i8.UserSharedPrefs {
-  @override
-  _i5.Future<_i3.Either<_i6.Failure, bool>> setUserToken(String? token) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #setUserToken,
-          [token],
-        ),
-        returnValue: _i5.Future<_i3.Either<_i6.Failure, bool>>.value(
-            _FakeEither_1<_i6.Failure, bool>(
-          this,
-          Invocation.method(
-            #setUserToken,
-            [token],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i5.Future<_i3.Either<_i6.Failure, bool>>.value(
-                _FakeEither_1<_i6.Failure, bool>(
-          this,
-          Invocation.method(
-            #setUserToken,
-            [token],
-          ),
-        )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, bool>>);
-
-  @override
-  _i5.Future<_i3.Either<_i6.Failure, String?>> getUserToken() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getUserToken,
-          [],
-        ),
-        returnValue: _i5.Future<_i3.Either<_i6.Failure, String?>>.value(
-            _FakeEither_1<_i6.Failure, String?>(
-          this,
-          Invocation.method(
-            #getUserToken,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i5.Future<_i3.Either<_i6.Failure, String?>>.value(
-                _FakeEither_1<_i6.Failure, String?>(
-          this,
-          Invocation.method(
-            #getUserToken,
-            [],
-          ),
-        )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, String?>>);
-
-  @override
-  _i5.Future<_i3.Either<_i6.Failure, bool>> deleteUserToken() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteUserToken,
-          [],
-        ),
-        returnValue: _i5.Future<_i3.Either<_i6.Failure, bool>>.value(
-            _FakeEither_1<_i6.Failure, bool>(
-          this,
-          Invocation.method(
-            #deleteUserToken,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i5.Future<_i3.Either<_i6.Failure, bool>>.value(
-                _FakeEither_1<_i6.Failure, bool>(
-          this,
-          Invocation.method(
-            #deleteUserToken,
-            [],
-          ),
-        )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, bool>>);
 }

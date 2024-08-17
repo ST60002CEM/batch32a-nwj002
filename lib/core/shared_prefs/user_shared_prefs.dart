@@ -14,20 +14,24 @@ class UserSharedPrefs {
     try {
       _sharedPreferences = await SharedPreferences.getInstance();
       await _sharedPreferences.setString('token', token);
-      return right(true);
+      return const Right(true);
     } catch (e) {
-      return left(Failure(error: e.toString()));
+      return Left(Failure(error: e.toString()));
     }
   }
 
   // Get user token
   Future<Either<Failure, String?>> getUserToken() async {
     try {
-      _sharedPreferences = await SharedPreferences.getInstance();
-      final token = _sharedPreferences.getString('token');
-      return right(token);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
+      if (token != null) {
+        return Right(token);
+      } else {
+        return Left(Failure(error: 'Token not found'));
+      }
     } catch (e) {
-      return left(Failure(error: e.toString()));
+      return Left(Failure(error: e.toString()));
     }
   }
 
@@ -37,6 +41,27 @@ class UserSharedPrefs {
       _sharedPreferences = await SharedPreferences.getInstance();
       await _sharedPreferences.remove('token');
       return right(true);
+    } catch (e) {
+      return left(Failure(error: e.toString()));
+    }
+  }
+
+// Set user id
+  Future<Either<Failure, bool>> setUserId(String userId) async {
+    try {
+      _sharedPreferences = await SharedPreferences.getInstance();
+      await _sharedPreferences.setString('user_id', userId);
+      return right(true);
+    } catch (e) {
+      return left(Failure(error: e.toString()));
+    }
+  }
+
+  Future<Either<Failure, String?>> getUserId() async {
+    try {
+      _sharedPreferences = await SharedPreferences.getInstance();
+      final userId = _sharedPreferences.getString('user_id');
+      return right(userId);
     } catch (e) {
       return left(Failure(error: e.toString()));
     }

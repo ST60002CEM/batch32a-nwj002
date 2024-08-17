@@ -60,4 +60,11 @@ class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
     userSharedPrefs.deleteUserToken();
     navigator.openLoginView();
   }
+
+  // Open Login page
+  void openPlaceOrderView() {
+    Future.delayed(const Duration(seconds: 3), () {
+      navigator.openPlaceOrderView();
+    });
+  }
 }

@@ -1,6 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:liquor_ordering_system/core/common/internet_connectivity,dart';
+
+// import '../../core/common/internet_connectivity.dart';
 
 // class InternetCheckView extends StatelessWidget {
 //   const InternetCheckView({super.key});
@@ -17,12 +18,12 @@
 //             final connectivityStatus = ref.watch(connectivityStatusProvider);
 //             if (connectivityStatus == ConnectivityStatus.isConnected) {
 //               return const Text(
-//                 'Connected',
+//                 'Connected to Network',
 //                 style: TextStyle(fontSize: 24),
 //               );
 //             } else {
 //               return const Text(
-//                 'Disconnected',
+//                 'Disconnected from Network',
 //                 style: TextStyle(fontSize: 24),
 //               );
 //             }

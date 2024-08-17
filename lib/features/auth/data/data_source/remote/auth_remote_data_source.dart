@@ -70,15 +70,30 @@ class AuthRemoteDataSource {
       }
       return Left(
         Failure(
-          error: response.data["message"],
+          error: response.data["message"] ?? 'Unknown error',
           statusCode: response.statusCode.toString(),
         ),
       );
     } on DioException catch (e) {
+      if (e.response != null) {
+        print('DioError! Response data: ${e.response?.data}');
+        print('DioError! Response headers: ${e.response?.headers}');
+        print('DioError! Response request: ${e.response?.requestOptions}');
+      } else {
+        print('DioError! Error message: ${e.message}');
+      }
       return Left(
         Failure(
-          error: e.error.toString(),
+          error: e.message ?? 'Unknown error',
           statusCode: e.response?.statusCode.toString() ?? '0',
+        ),
+      );
+    } catch (e) {
+      print('Unexpected error: $e');
+      return Left(
+        Failure(
+          error: e.toString(),
+          statusCode: '0',
         ),
       );
     }
@@ -196,6 +211,65 @@ class AuthRemoteDataSource {
         Failure(
           error: e.error.toString(),
           statusCode: e.response?.statusCode.toString() ?? '0',
+        ),
+      );
+    }
+  }
+
+  Future<Either<Failure, bool>> sentOtp(String phone) async {
+    try {
+      Response response = await dio.post(
+        ApiEndpoints.sentOtp,
+        data: {
+          "phone": phone,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return const Right(true);
+      }
+
+      return Left(
+        Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString()),
+      );
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.message.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<Either<Failure, bool>> resetPassword(
+      {required String phone,
+      required String otp,
+      required String newPassword}) async {
+    try {
+      Response response = await dio.post(
+        ApiEndpoints.verifyOtp,
+        data: {
+          "phone": phone,
+          "otp": otp,
+          "newPassword": newPassword,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return const Right(true);
+      }
+
+      return Left(
+        Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString()),
+      );
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.message.toString(),
         ),
       );
     }

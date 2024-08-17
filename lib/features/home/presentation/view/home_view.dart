@@ -14,7 +14,7 @@ class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
   List<Widget> lstBottomScreen = [
     const DashboardView(),
-    const CartView(),
+    CartView(),
     const ProfileView(),
   ];
 

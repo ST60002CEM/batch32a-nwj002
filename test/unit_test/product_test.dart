@@ -23,8 +23,9 @@ void main() {
     lstProducts = ProductTestData.getProductsTestData();
     container = ProviderContainer(
       overrides: [
-        productViewModelProvider.overrideWith(
-            (ref) => ProductViewModel(productUsecase: mockProductUseCase)),
+        productViewModelProvider.overrideWith((ref) => ProductViewModel(
+              productUsecase: mockProductUseCase,
+            )),
       ],
     );
   });

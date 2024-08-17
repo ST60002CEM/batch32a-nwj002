@@ -14,4 +14,9 @@ abstract class IAuthRepository {
   Future<Either<Failure, bool>> verifyUser();
   Future<Either<Failure, AuthEntity>> getCurrentUser();
   Future<Either<Failure, bool>> updateUser(AuthEntity user);
+  Future<Either<Failure, bool>> sendOtp(String phone);
+  Future<Either<Failure, bool>> resetPass(
+      {required String phone,
+      required String newPassword,
+      required String otp});
 }

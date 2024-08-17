@@ -194,7 +194,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                           child: GestureDetector(
                             onTap: () {
-                              //to go to forget password
+                              ref
+                                  .read(authViewModelProvider.notifier)
+                                  .openForgotPasswordView();
                             },
                             child: const Text(
                               "Forgot Password?",

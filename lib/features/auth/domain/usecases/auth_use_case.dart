@@ -37,4 +37,18 @@ class AuthUseCase {
   Future<Either<Failure, bool>> updateUser(AuthEntity user) async {
     return await authRepository.updateUser(user);
   }
+
+  Future<Either<Failure, bool>> sendOtp(String phone) async {
+    return await authRepository.sendOtp(phone);
+  }
+
+  //resetPass
+  Future<Either<Failure, bool>> resetPass({
+    required String phone,
+    required String newPassword,
+    required String otp,
+  }) async {
+    return await authRepository.resetPass(
+        phone: phone, newPassword: newPassword, otp: otp);
+  }
 }
