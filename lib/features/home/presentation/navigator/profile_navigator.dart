@@ -5,11 +5,14 @@ import 'package:liquor_ordering_system/features/home/presentation/view/bottom_vi
 
 final profileNavigatorProvider = Provider<ProfileNavigator>((ref) {
   return ProfileNavigator();
+  
 });
 
 class ProfileNavigator with LoginViewRoute {
   void openPlaceOrderView() {}
 }
+
+
 
 mixin ProfileRoute {
   openProfile() {

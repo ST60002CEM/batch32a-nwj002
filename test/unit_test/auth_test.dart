@@ -84,7 +84,9 @@ void main() {
                   auth.password.isNotEmpty &&
                   auth.email.contains('@') &&
                   auth.email.contains('.') &&
-                  auth.age.isNotEmpty
+                  // auth.age.isNotEmpty
+                  auth.phone.toString().length == 10 &&
+                  auth.age > 18
               ? const Right(true)
               : Left(
                   Failure(error: 'Invalid'),
@@ -93,15 +95,14 @@ void main() {
       });
 
       // Act
-      await container
-          .read(authViewModelProvider.notifier)
-          .registerUser(const AuthEntity(
-            fullname: 'nawaraj',
-            username: 'nwj',
-            email: 'nwj@gmail.com',
-            password: '12345678',
-            age: '18',
-          ));
+      await container.read(authViewModelProvider.notifier).registerUser(
+          const AuthEntity(
+              fullname: 'nawaraj',
+              username: 'nwj',
+              email: 'nwj@gmail.com',
+              password: '12345678',
+              age: 18,
+              phone: 1234567890));
 
       final state = container.read(authViewModelProvider);
 
@@ -113,20 +114,20 @@ void main() {
 //register new user with existing username then it should show error else it should register the user
   test("Register new user existing", () async {
     const authEntity = AuthEntity(
-      fullname: 'Nawaraj',
-      username: 'nwj0',
-      password: '1234567890',
-      age: '22',
-      email: 'nwj0@gmail.com',
-    );
+        fullname: 'Nawaraj',
+        username: 'nwj0',
+        password: '1234567890',
+        age: 22,
+        email: 'nwj0@gmail.com',
+        phone: 1234567890);
 
     const existingUserEntity = AuthEntity(
-      fullname: 'Nawaraj',
-      username: 'nwj1',
-      password: '1234567890',
-      age: '22',
-      email: 'nwj1@gmail.com',
-    );
+        fullname: 'Nawaraj',
+        username: 'nwj1',
+        password: '1234567890',
+        age: 22,
+        email: 'nwj1@gmail.com',
+        phone: 1234567890);
 
     when(mockAuthUsecase.registerUser(any)).thenAnswer((invocation) {
       final authEntity = invocation.positionalArguments[0] as AuthEntity;

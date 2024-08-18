@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquor_ordering_system/core/common/my_snack_bar.dart';
-import 'package:liquor_ordering_system/orders/domain/entity/order_entity.dart';
-import 'package:liquor_ordering_system/orders/domain/usecases/order_usecase.dart';
-import 'package:liquor_ordering_system/orders/presentation/state/order_state.dart';
+import 'package:liquor_ordering_system/features/orders/domain/entity/order_entity.dart';
+import 'package:liquor_ordering_system/features/orders/domain/usecases/order_usecase.dart';
+import 'package:liquor_ordering_system/features/orders/presentation/state/order_state.dart';
 
 final orderViewModelProvider =
     StateNotifierProvider<OrderViewModel, OrderState>(

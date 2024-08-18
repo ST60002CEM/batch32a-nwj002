@@ -66,11 +66,6 @@ class _CartViewState extends ConsumerState<CartView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Text(
-                  //   'Subtotal: Rs.${subtotal.toStringAsFixed(2)}',
-                  //   style: const TextStyle(
-                  //       fontSize: 16, fontWeight: FontWeight.bold),
-                  // ),
                   Text(
                     'Total: Rs.${total.toStringAsFixed(2)}',
                     style: const TextStyle(
@@ -155,8 +150,8 @@ class _CartViewState extends ConsumerState<CartView> {
             ElevatedButton(
               child: const Text('Order'),
               onPressed: () {
-                // Handle order logic here
                 Navigator.of(context).pop();
+                _checkoutCart(addressController.text, paymentType);
               },
             ),
           ],
@@ -164,10 +159,15 @@ class _CartViewState extends ConsumerState<CartView> {
       },
     );
   }
-}
 
-// void _handleCheckout(CartState cartState) {
-//   return ref
-//       .read(cartViewModelProvider.notifier)
-//       .checkoutCart('cash', cartState.subtotal.toInt() + 50, );
-// }
+  void _checkoutCart(String address, String paymentType) {
+    final total =
+        ref.read(cartViewModelProvider).products.fold<double>(0.0, (sum, item) {
+      return sum + (item.productID.productPrice * item.quantity);
+    });
+
+    ref
+        .read(cartViewModelProvider.notifier)
+        .checkoutCart(paymentType, total, address);
+  }
+}

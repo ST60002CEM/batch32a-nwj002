@@ -5,9 +5,9 @@ import 'package:liquor_ordering_system/app/constants/api_endpoint.dart';
 import 'package:liquor_ordering_system/core/failure/failure.dart';
 import 'package:liquor_ordering_system/core/networking/remote/http_service.dart';
 import 'package:liquor_ordering_system/core/shared_prefs/user_shared_prefs.dart';
-import 'package:liquor_ordering_system/orders/data/dto/get_all_order_dto.dart';
-import 'package:liquor_ordering_system/orders/data/model/order_api_model.dart';
-import 'package:liquor_ordering_system/orders/domain/entity/order_entity.dart';
+import 'package:liquor_ordering_system/features/orders/data/dto/get_all_order_dto.dart';
+import 'package:liquor_ordering_system/features/orders/data/model/order_api_model.dart';
+import 'package:liquor_ordering_system/features/orders/domain/entity/order_entity.dart';
 
 final orderRemoteDataSourceProvider = Provider<OrderRemoteDataSource>((ref) {
   final dio = ref.watch(httpServiceProvider);

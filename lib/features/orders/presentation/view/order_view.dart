@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:liquor_ordering_system/app/constants/api_endpoint.dart';
-import 'package:liquor_ordering_system/orders/domain/entity/order_entity.dart';
-import 'package:liquor_ordering_system/orders/presentation/viewmodel/order_view_model.dart';
+import 'package:liquor_ordering_system/features/home/presentation/view/home_view.dart';
+import 'package:liquor_ordering_system/features/orders/domain/entity/order_entity.dart';
+import 'package:liquor_ordering_system/features/orders/presentation/viewmodel/order_view_model.dart';
 
 class OrderView extends ConsumerStatefulWidget {
   const OrderView({super.key});
@@ -135,12 +136,6 @@ class _OrderViewState extends ConsumerState<OrderView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Lottie.asset(
-          //   'assets/lottie/empty_orders.json',
-          //   height: 200,
-          //   width: 200,
-          // ),
-          const SizedBox(height: 20),
           const Text(
             'No orders yet',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -153,7 +148,12 @@ class _OrderViewState extends ConsumerState<OrderView> {
           const SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () {
-              // Navigate to shopping page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomeView(),
+                ),
+              );
             },
             icon: const Icon(Icons.shopping_bag),
             label: const Text('Start Shopping'),

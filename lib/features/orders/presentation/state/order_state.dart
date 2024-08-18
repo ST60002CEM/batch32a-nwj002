@@ -1,4 +1,4 @@
-import 'package:liquor_ordering_system/orders/domain/entity/order_entity.dart';
+import 'package:liquor_ordering_system/features/orders/domain/entity/order_entity.dart';
 
 class OrderState {
   final List<OrderEntity> orders;

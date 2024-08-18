@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:liquor_ordering_system/features/auth/presentation/view/login_view.dart';
 import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/cart_view.dart';
 import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/dashboard_view.dart';
 import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/profile_view.dart';
+import 'package:liquor_ordering_system/features/home/presentation/viewmodel/cureent_user_viewmodel.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -29,9 +29,32 @@ class _HomeViewState extends ConsumerState<HomeView> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginView()),
+              // Handle Log Out tap and ask are you sure want to logout]
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Logout'),
+                    content: const Text('Are you sure you want to logout?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      ElevatedButton(
+                        child: const Text('Logout'),
+                        onPressed: () {
+                          ref
+                              .read(currentUserViewModelProvider.notifier)
+                              .logout();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
               );
             },
             icon: const Icon(Icons.exit_to_app),

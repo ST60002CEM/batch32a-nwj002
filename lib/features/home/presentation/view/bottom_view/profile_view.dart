@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:liquor_ordering_system/features/Profile/presentaion/view/edit_profile_view.dart';
 import 'package:liquor_ordering_system/features/home/presentation/viewmodel/cureent_user_viewmodel.dart';
+import 'package:liquor_ordering_system/features/orders/presentation/view/order_view.dart';
 
 class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
@@ -44,12 +46,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                   children: [
                     const CircleAvatar(
                       radius: 60,
-                      backgroundColor: Colors.red,
-                      child: Icon(
-                        Icons.person,
-                        size: 60,
-                        color: Colors.white,
-                      ),
+                      backgroundImage: AssetImage('assets/images/pfp.jpg'),
                     ),
                     Positioned(
                       bottom: 4,
@@ -101,7 +98,12 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                   icon: Icons.shopping_bag_outlined,
                   title: 'My Order',
                   onTap: () {
-                    // Handle My Order tap
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const OrderView(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 8),
@@ -121,6 +123,12 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                   title: 'Edit Profile',
                   onTap: () {
                     // Handle Edit Profile tap
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditProfileView(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 8),
@@ -144,7 +152,34 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                   icon: Icons.logout_outlined,
                   title: 'Log Out',
                   onTap: () {
-                    // Handle Log Out tap
+                    // Handle Log Out tap and ask are you sure want to logout
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Logout'),
+                          content:
+                              const Text('Are you sure you want to logout?'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('Cancel'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            ElevatedButton(
+                              child: const Text('Logout'),
+                              onPressed: () {
+                                ref
+                                    .read(currentUserViewModelProvider.notifier)
+                                    .logout();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
               ],

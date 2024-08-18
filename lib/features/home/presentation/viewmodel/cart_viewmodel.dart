@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquor_ordering_system/core/shared_prefs/user_shared_prefs.dart';
 import 'package:liquor_ordering_system/features/home/domain/usecases/cart_usecase.dart';
 import 'package:liquor_ordering_system/features/home/presentation/state/cart_state.dart';
-import 'package:liquor_ordering_system/orders/domain/entity/order_entity.dart';
-import 'package:liquor_ordering_system/orders/domain/usecases/order_usecase.dart';
+import 'package:liquor_ordering_system/features/orders/domain/entity/order_entity.dart';
+import 'package:liquor_ordering_system/features/orders/domain/usecases/order_usecase.dart';
 
 final cartViewModelProvider =
     StateNotifierProvider<CartViewModel, CartState>((ref) => CartViewModel(
@@ -59,14 +59,40 @@ class CartViewModel extends StateNotifier<CartState> {
     getCarts();
   }
 
+  // Change status of cart to 'checked out'
+  Future<void> changeStatus() async {
+    state = state.copyWith(isLoading: true);
+    print('Changing status of cart...');
+    final result = await cartUsecase.changeStatus();
+
+    result.fold(
+      (failure) {
+        state = state.copyWith(
+          isLoading: false,
+          error: failure.error,
+        );
+        print('Change Status Error: ${failure.error}');
+      },
+      (success) {
+        state = state.copyWith(
+          products: [],
+          isLoading: false,
+        );
+        print('Cart status changed successfully.');
+      },
+    );
+  }
+
   Future<void> checkoutCart(
       String paymentMethod, double total, String address) async {
     state = state.copyWith(isLoading: true);
+    print('Checking out cart...');
     final order = OrderEntity(
-        carts: state.products,
-        total: total,
-        address: address,
-        paymentType: paymentMethod);
+      carts: state.products,
+      total: total,
+      address: address,
+      paymentType: paymentMethod,
+    );
     final result = await orderUsecase.createOrder(order);
 
     result.fold(
@@ -82,6 +108,31 @@ class CartViewModel extends StateNotifier<CartState> {
           products: [],
           isLoading: false,
         );
+        await changeStatus();
+        print('Cart checked out successfully.');
+      },
+    );
+  }
+
+  Future<void> clearCart() async {
+    state = state.copyWith(isLoading: true);
+    print('Clearing cart...');
+    final result = await cartUsecase.clearCart();
+
+    result.fold(
+      (failure) {
+        state = state.copyWith(
+          isLoading: false,
+          error: failure.error,
+        );
+        print('Clear Cart Error: ${failure.error}');
+      },
+      (success) {
+        state = state.copyWith(
+          products: [],
+          isLoading: false,
+        );
+        print('Cart cleared successfully.');
       },
     );
   }

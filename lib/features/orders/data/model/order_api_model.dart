@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:liquor_ordering_system/features/home/data/model/cart_api_model.dart';
-import 'package:liquor_ordering_system/orders/domain/entity/order_entity.dart';
+import 'package:liquor_ordering_system/features/orders/domain/entity/order_entity.dart';
 
 part 'order_api_model.g.dart';
 
