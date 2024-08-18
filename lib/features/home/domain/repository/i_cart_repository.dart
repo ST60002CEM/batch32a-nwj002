@@ -10,6 +10,9 @@ final cartRepositoryProvider =
 abstract class ICartRepository {
   Future<Either<Failure, List<CartEntity>>> getCarts();
 
-  Future<Either<Failure, bool>> addCart(
-       String productID, int quantity);
+  Future<Either<Failure, bool>> addCart(String productID, int quantity);
+
+  Future<Either<Failure, bool>> clearCart();
+
+  Future<Either<Failure, bool>> changeStatus();
 }

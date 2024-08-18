@@ -21,9 +21,20 @@ class CartRemoteRepository implements ICartRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> addCart(
-       String productID, int quantity) {
+  Future<Either<Failure, bool>> addCart(String productID, int quantity) {
     return cartRemoteDataSource.addToCart(
-        productID: productID, quantity: quantity,);
+      productID: productID,
+      quantity: quantity,
+    );
+  }
+
+  @override
+  Future<Either<Failure, bool>> clearCart() async {
+    return cartRemoteDataSource.clearCart();
+  }
+
+  @override
+  Future<Either<Failure, bool>> changeStatus() {
+    return cartRemoteDataSource.changeStatus();
   }
 }
