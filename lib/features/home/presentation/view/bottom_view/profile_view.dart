@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:liquor_ordering_system/features/Profile/presentaion/view/edit_profile_view.dart';
+import 'package:liquor_ordering_system/features/profilelist/presentaion/view/edit_profile_view.dart';
 import 'package:liquor_ordering_system/features/home/presentation/viewmodel/cureent_user_viewmodel.dart';
 import 'package:liquor_ordering_system/features/orders/presentation/view/order_view.dart';
 

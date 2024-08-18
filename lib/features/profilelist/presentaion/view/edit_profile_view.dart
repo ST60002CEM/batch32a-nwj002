@@ -69,7 +69,7 @@ class EditProfileView extends ConsumerWidget {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Add update logic here
+                            _showConfirmationDialog(context, ref);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
@@ -93,6 +93,45 @@ class EditProfileView extends ConsumerWidget {
     );
   }
 
+  void _showConfirmationDialog(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Save'),
+          content: const Text('Are you sure you want to save changes?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                _saveChanges(context, ref); // Save changes
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _saveChanges(BuildContext context, WidgetRef ref) {
+    // Implement the save logic here
+    // After saving the changes, show a Snackbar
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Changes saved successfully!'),
+        backgroundColor: Colors.green,
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   Widget _buildTextField(
       {required String label, required String initialValue}) {
     return TextFormField(
@@ -101,21 +140,21 @@ class EditProfileView extends ConsumerWidget {
         labelText: label,
         labelStyle: const TextStyle(
           fontSize: 16,
-          color: Colors.orange, // Label text color
+          color: Color(0xFFD29062), // Label text color
         ),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
-          borderSide: const BorderSide(color: Colors.orange),
+          borderSide: const BorderSide(color: Color(0xFFD29062)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
-          borderSide: const BorderSide(color: Colors.orange),
+          borderSide: const BorderSide(color: Color(0xFFD29062)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
-          borderSide: const BorderSide(color: Colors.orange),
+          borderSide: const BorderSide(color: Color(0xFFD29062)),
         ),
       ),
     );

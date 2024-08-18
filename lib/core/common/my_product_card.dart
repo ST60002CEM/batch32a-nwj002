@@ -112,7 +112,10 @@ class MyProductCard extends StatelessWidget {
             SizedBox(height: screenHeight * 0.01),
 
             Text(
-              data.productDescription,
+              data.productDescription.split(' ').take(18).join(' ') +
+                  (data.productDescription.split(' ').length > 200
+                      ? '...'
+                      : ''),
               style: TextStyle(
                 color: const Color(0xFF979797),
                 fontSize: screenWidth * 0.03, // Responsive font size
@@ -121,6 +124,7 @@ class MyProductCard extends StatelessWidget {
                 height: 1.2,
               ),
             ),
+
             SizedBox(height: screenHeight * 0.02),
             Row(
               children: [

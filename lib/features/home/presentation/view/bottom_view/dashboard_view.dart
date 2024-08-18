@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:all_sensors2/all_sensors2.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquor_ordering_system/app/constants/api_endpoint.dart';
@@ -97,61 +98,103 @@ class _DashboardViewState extends ConsumerState<DashboardView> {
           controller: _scrollController,
           child: Column(
             children: [
-              // Carousel with Image Slides
-
+              // Banner Carousel
+              CarouselSlider(
+                items: [
+                  Image.asset('assets/images/s1.jpg', fit: BoxFit.cover),
+                  Image.asset('assets/images/s2.jpg', fit: BoxFit.cover),
+                  Image.asset('assets/images/s3.jpg', fit: BoxFit.cover),
+                ],
+                options: CarouselOptions(
+                  height: screenHeight * 0.25,
+                  autoPlay: true,
+                  viewportFraction: 1.0,
+                ),
+              ),
               const SizedBox(height: 10),
               // Explore Categories Section
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Explore Categories',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        // Navigate to the Categories page
-                      },
-                      child: const Text(
-                        'Show all',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Explore Categories',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
+                        InkWell(
+                          onTap: () {
+                            // Navigate to the Categories page
+                          },
+                          child: const Text(
+                            'Show all',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    // Category Icons
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 4, // Number of categories
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
                       ),
+                      itemBuilder: (context, index) {
+                        // List of category images
+                        final List<String> categoryImages = [
+                          'assets/images/category1.png', // Ensure these paths are correct
+                          'assets/images/category1.png',
+                          'assets/images/category1.png',
+                          'assets/images/category1.png',
+                        ];
+
+                        return GestureDetector(
+                          onTap: () {
+                            // Handle category click
+                          },
+                          child: Container(
+                            width: 40, // 70% of 100
+                            height: 40, // 70% of 100
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle, // Circular shape
+
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey
+                                      .withOpacity(0.15), // Shadow color
+                                  spreadRadius: 20, // Spread radius
+                                  blurRadius: 10, // Blur radius
+                                  offset: const Offset(0, 4), // Shadow offset
+                                ),
+                              ],
+                              image: DecorationImage(
+                                image: AssetImage(categoryImages[index]),
+                                fit: BoxFit
+                                    .cover, // Ensure the image covers the container
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              // Category Icons
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(4, (index) {
-                    return Container(
-                      width: screenWidth * 0.2, // 20% of the screen width
-                      height: screenHeight * 0.1, // 10% of the screen height
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                            'assets/images/ticon.png',
-                          ),
-                          // Replace with your category images
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  }),
                 ),
               ),
               const SizedBox(height: 10),
@@ -406,18 +449,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
                 subtitle: Text(userReview!),
               ),
-            const ListTile(
-              title: Text(
-                'John Doe',
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              subtitle: Text(
-                'This product is amazing! I really love the quality and the taste.',
-              ),
-            ),
           ],
         ),
       ),
