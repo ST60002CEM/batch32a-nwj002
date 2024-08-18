@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:liquor_ordering_system/app/navigator_key/navigator_key.dart';
 import 'package:liquor_ordering_system/app/themes/app_theme.dart';
-import 'package:liquor_ordering_system/features/home/presentation/view/home_view.dart';
+import 'package:liquor_ordering_system/features/auth/presentation/view/login_view.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -14,7 +14,7 @@ class App extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tipsy',
       theme: AppTheme.getApplicationTheme(false),
-      home: const HomeView(),
+      home: const LoginView(),
     );
   }
 }

@@ -25,4 +25,37 @@ class AuthLocalRepository implements IAuthRepository {
   Future<Either<Failure, bool>> registerUser(AuthEntity user) {
     return _authLocalDataSource.registerUser(user);
   }
+
+  @override
+  Future<Either<Failure, AuthEntity>> getCurrentUser() {
+    // TODO: implement getCurrentUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateUser(AuthEntity user) {
+    // TODO: implement updateUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> verifyUser() {
+    // TODO: implement verifyUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> resetPass(
+      {required String phone,
+      required String newPassword,
+      required String otp}) {
+    // TODO: implement resetPass
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> sendOtp(String phone) {
+    // TODO: implement sendOtp
+    throw UnimplementedError();
+  }
 }

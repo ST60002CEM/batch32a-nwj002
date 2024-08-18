@@ -11,9 +11,10 @@ GetCurrentUserDto _$GetCurrentUserDtoFromJson(Map<String, dynamic> json) =>
       id: json['_id'] as String,
       email: json['email'] as String,
       fullname: json['fullname'] as String,
-      age: json['age'] as String,
+      age: (json['age'] as num).toInt(),
       username: json['username'] as String,
       password: json['password'] as String,
+      phone: (json['phone'] as num).toInt(),
     );
 
 Map<String, dynamic> _$GetCurrentUserDtoToJson(GetCurrentUserDto instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$GetCurrentUserDtoToJson(GetCurrentUserDto instance) =>
       'age': instance.age,
       'username': instance.username,
       'password': instance.password,
+      'phone': instance.phone,
     };

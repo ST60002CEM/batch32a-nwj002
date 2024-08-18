@@ -21,4 +21,18 @@ class AuthUseCase {
       String? email, String? password) async {
     return await _authRepository.loginUser(email ?? "", password ?? "");
   }
+
+  Future<Either<Failure, bool>> sendOtp(String phone) async {
+    return await _authRepository.sendOtp(phone);
+  }
+
+  Future<Either<Failure, bool>> resetPass(
+      {String? phone, String? newPassword, String? otp}) async {
+    return await _authRepository.resetPass(
+        phone: phone ?? "", newPassword: newPassword ?? "", otp: otp ?? "");
+  }
+
+  Future<Either<Failure, AuthEntity>> getCurrentUser() {
+    return _authRepository.getCurrentUser();
+  }
 }

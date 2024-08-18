@@ -2,6 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:liquor_ordering_system/app/constants/api_endpoint.dart';
 import 'package:liquor_ordering_system/features/home/domain/entity/product_entity.dart';
 
+class ProductGrid extends StatelessWidget {
+  final List<ProductEntity> products;
+  final Function(ProductEntity) onAddToCart;
+
+  const ProductGrid({
+    required this.products,
+    required this.onAddToCart,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+        childAspectRatio: 0.7,
+      ),
+      itemCount: products.length,
+      itemBuilder: (context, index) {
+        return MyProductCard(
+          data: products[index],
+          onAddToCart: () => onAddToCart(products[index]),
+        );
+      },
+    );
+  }
+}
+
 class MyProductCard extends StatelessWidget {
   final ProductEntity data;
   final VoidCallback onAddToCart;
@@ -23,7 +54,7 @@ class MyProductCard extends StatelessWidget {
         vertical: screenHeight * 0.01, // Spacing between cards
       ),
       child: Container(
-        width: screenWidth * 0.9, // Responsive width
+        width: screenWidth * 0.45, // Adjusted width for two cards per row
         padding: const EdgeInsets.all(8), // Internal padding
         decoration: ShapeDecoration(
           color: Colors.white,
@@ -39,86 +70,94 @@ class MyProductCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
+        child: Column(
           children: [
             Container(
-              width: screenWidth * 0.3, // Responsive image width
-              height: screenHeight * 0.15, // Responsive image height
+              width: screenWidth * 0.4, // Responsive image width
+              height: screenHeight * 0.2, // Responsive image height
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(imageUrl),
-                  fit: BoxFit.cover,
-                ),
                 borderRadius: BorderRadius.circular(10),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
             SizedBox(
-                width: screenWidth * 0.03), // Spacing between image and text
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    data.productName,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: screenWidth * 0.04, // Responsive font size
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      height: 1.2,
-                    ),
-                  ),
-                  SizedBox(height: screenHeight * 0.01),
-                  Text(
-                    '${data.productCategory} | 5%',
-                    style: TextStyle(
-                      color: const Color(0xFF979797),
-                      fontSize: screenWidth * 0.03, // Responsive font size
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      height: 1.2,
-                    ),
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
-                  Row(
-                    children: [
-                      Text(
-                        'Rs.',
-                        style: TextStyle(
-                          color: const Color(0xFFD29062),
-                          fontSize: screenWidth * 0.04, // Responsive font size
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          height: 1.2,
-                        ),
-                      ),
-                      SizedBox(width: screenWidth * 0.01),
-                      Text(
-                        data.productPrice.toString(),
-                        style: TextStyle(
-                          color: const Color(0xFFD29062),
-                          fontSize: screenWidth * 0.04, // Responsive font size
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          height: 1.2,
-                        ),
-                      ),
-                      const Spacer(),
-                      ElevatedButton(
-                        onPressed: onAddToCart,
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.orange,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: const Text('Add to Cart'),
-                      ),
-                    ],
-                  ),
-                ],
+                height: screenHeight * 0.02), // Spacing between image and text
+            Text(
+              data.productName,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: screenWidth * 0.04, // Responsive font size
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                height: 1.2,
               ),
+            ),
+            SizedBox(height: screenHeight * 0.01),
+            Text(
+              data.productCategory,
+              style: TextStyle(
+                color: const Color.fromARGB(255, 237, 0, 0),
+                fontSize: screenWidth * 0.03, // Responsive font size
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                height: 1.2,
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.01),
+
+            Text(
+              data.productDescription,
+              style: TextStyle(
+                color: const Color(0xFF979797),
+                fontSize: screenWidth * 0.03, // Responsive font size
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                height: 1.2,
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.02),
+            Row(
+              children: [
+                Text(
+                  'Rs.',
+                  style: TextStyle(
+                    color: const Color(0xFFD29062),
+                    fontSize: screenWidth * 0.04, // Responsive font size
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    height: 1.2,
+                  ),
+                ),
+                SizedBox(width: screenWidth * 0.01),
+                Text(
+                  data.productPrice.toString(),
+                  style: TextStyle(
+                    color: const Color(0xFFD29062),
+                    fontSize: screenWidth * 0.04, // Responsive font size
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    height: 1.2,
+                  ),
+                ),
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: onAddToCart,
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.orange,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text('Add to Cart'),
+                ),
+              ],
             ),
           ],
         ),

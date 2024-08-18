@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:liquor_ordering_system/features/auth/presentation/view/login_view.dart';
 import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/cart_view.dart';
 import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/dashboard_view.dart';
 import 'package:liquor_ordering_system/features/home/presentation/view/bottom_view/profile_view.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  ConsumerState<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends ConsumerState<HomeView> {
   int _selectedIndex = 0;
   List<Widget> lstBottomScreen = [
     const DashboardView(),
@@ -26,7 +28,12 @@ class _HomeViewState extends State<HomeView> {
         title: const Text('Tipsy'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginView()),
+              );
+            },
             icon: const Icon(Icons.exit_to_app),
             color: Colors.white,
           ),

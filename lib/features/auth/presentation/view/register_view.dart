@@ -19,6 +19,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
   final confirmPasswordController = TextEditingController();
   final emailController = TextEditingController();
   final ageController = TextEditingController();
+  final phoneController = TextEditingController();
 
   bool isObscure = true;
 
@@ -243,6 +244,56 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: TextFormField(
+                      controller: phoneController,
+                      keyboardType: TextInputType.phone,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your phone number';
+                        }
+                        return null;
+                      },
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 14,
+                        color: Color(0xff000000),
+                      ),
+                      decoration: InputDecoration(
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: const BorderSide(
+                              color: Color(0x00ffffff), width: 1),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: const BorderSide(
+                              color: Color(0x00ffffff), width: 1),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: const BorderSide(
+                              color: Color(0x00ffffff), width: 1),
+                        ),
+                        hintText: "Phone Number",
+                        hintStyle: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 14,
+                          color: Color(0xff9f9d9d),
+                        ),
+                        filled: true,
+                        fillColor: const Color(0x21ffc107),
+                        isDense: false,
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 12),
+                        prefixIcon: const Icon(Icons.phone,
+                            color: Color(0xFFD29062), size: 22),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: TextFormField(
                       controller: passwordController,
                       obscureText: true,
                       validator: (value) {
@@ -378,7 +429,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           username: usernameController.text,
                           password: passwordController.text,
                           email: emailController.text,
-                          age: ageController.text,
+                          age: int.parse(ageController.text),
+                          phone: int.parse(phoneController.text),
                         );
                         ref
                             .read(authViewModelProvider.notifier)

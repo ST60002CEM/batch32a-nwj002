@@ -3,10 +3,11 @@ import 'package:equatable/equatable.dart';
 class AuthEntity extends Equatable {
   final String? id;
   final String fullname;
-  final String age;
+  final int age;
   final String username;
   final String password;
   final String email;
+  final int phone;
 
   const AuthEntity({
     this.id,
@@ -15,6 +16,7 @@ class AuthEntity extends Equatable {
     required this.username,
     required this.password,
     required this.email,
+    required this.phone,
   });
 
   @override
@@ -25,5 +27,6 @@ class AuthEntity extends Equatable {
         username,
         password,
         email,
+        phone,
       ];
 }

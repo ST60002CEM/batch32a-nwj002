@@ -10,8 +10,10 @@ class LoginView extends ConsumerStatefulWidget {
 }
 
 class _LoginViewState extends ConsumerState<LoginView> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController =
+      TextEditingController(text: 'nwj@gmail.com');
+  final TextEditingController _passwordController =
+      TextEditingController(text: '1234567890');
 
   bool _obscureTextPassword = true;
   final _formKey = GlobalKey<FormState>();
@@ -192,7 +194,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                           child: GestureDetector(
                             onTap: () {
-                              //to go to forget password
+                              ref
+                                  .read(authViewModelProvider.notifier)
+                                  .openForgotPasswordView();
                             },
                             child: const Text(
                               "Forgot Password?",

@@ -108,6 +108,103 @@ class MockAuthUseCase extends _i1.Mock implements _i3.AuthUseCase {
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, bool>> sendOtp(String? phone) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendOtp,
+          [phone],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
+            _FakeEither_0<_i5.Failure, bool>(
+          this,
+          Invocation.method(
+            #sendOtp,
+            [phone],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
+                _FakeEither_0<_i5.Failure, bool>(
+          this,
+          Invocation.method(
+            #sendOtp,
+            [phone],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, bool>> resetPass({
+    String? phone,
+    String? newPassword,
+    String? otp,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetPass,
+          [],
+          {
+            #phone: phone,
+            #newPassword: newPassword,
+            #otp: otp,
+          },
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
+            _FakeEither_0<_i5.Failure, bool>(
+          this,
+          Invocation.method(
+            #resetPass,
+            [],
+            {
+              #phone: phone,
+              #newPassword: newPassword,
+              #otp: otp,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
+                _FakeEither_0<_i5.Failure, bool>(
+          this,
+          Invocation.method(
+            #resetPass,
+            [],
+            {
+              #phone: phone,
+              #newPassword: newPassword,
+              #otp: otp,
+            },
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, _i6.AuthEntity>> getCurrentUser() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCurrentUser,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.AuthEntity>>.value(
+            _FakeEither_0<_i5.Failure, _i6.AuthEntity>(
+          this,
+          Invocation.method(
+            #getCurrentUser,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.Failure, _i6.AuthEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.AuthEntity>(
+          this,
+          Invocation.method(
+            #getCurrentUser,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.AuthEntity>>);
 }
 
 /// A class which mocks [LoginViewNavigator].

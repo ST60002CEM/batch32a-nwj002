@@ -64,4 +64,8 @@ class AuthViewModel extends StateNotifier<AuthState> {
   void openHomeView() {
     navigator.openHomeView();
   }
+
+  void openForgotPasswordView() {
+    navigator.openForgotPasswordView();
+  }
 }
