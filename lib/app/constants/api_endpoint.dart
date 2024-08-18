@@ -22,6 +22,8 @@ class ApiEndpoints {
   //cart routes
   static const String addToCart = 'cart/addToCart';
   static const String getCart = 'cart/getCartByUserID';
+  static const String clearCart = "/update/";
+  static const String changeStatus = "cart/status";
 
   // place order routes
   static const String createOrder = 'order/create';
